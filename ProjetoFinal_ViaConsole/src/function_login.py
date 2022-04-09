@@ -1,32 +1,37 @@
 import getpass
-from src.usuario import Usuario
 
-def escolha():
+from usuario import Usuario
+# from function_cadastroPessoa import menuPessoas
+# from function_cadastroImoveis import menuImoveis
+# from function_contratos import menuContratos
+
+def menuPrincipal():
   while True:
     print("1 - Novo usuário")
     print("2 - Já sou cadastrado")
     print("0 - Encerrar")
-    opcao = int(input("Opção: "))
-    if opcoes(opcao):
+    opcao01 = int(input("Opção: "))
+    if opcoesMenuPrincial(opcao01):
       break
 
-def opcoes(opcao):    
-  if opcao in [1,2,0]:    
-    if opcao == 1: #Novo usuário
-      opcao1()
+def opcoesMenuPrincial(opcao01):    
+  if opcao01 in [1,2,0]:    
+    if opcao01 == 1: #Novo usuário
+      novoUsuario()
       
-    elif opcao == 2: #Já sou cadastrado     
-      opcao2()      
+    elif opcao01 == 2: #Já sou cadastrado     
+      if usuarioJaCadastrado():
+        menuNavegacao()
         
-    elif opcao == 0:#Sair
-      opcao0()
+    elif opcao01 == 0:#Sair
+      encerrarSistema()
       return True
     
   else:
     print("Opção Inválida!")
     return False
 
-def opcao1():  #Novo usuário
+def novoUsuario():  #Novo usuário
   print("Preencha os campos abaixo:")
   nome = str(input("Usuário: "))
   email_ok = False      
@@ -50,7 +55,7 @@ def opcao1():  #Novo usuário
   novo_usuario = Usuario(nome, email, senha)
   usuarios.append(novo_usuario)    
     
-def opcao2(): #Já possui cadastro
+def usuarioJaCadastrado(): #Já possui cadastro
   verificacao2 = False
   while not verificacao2:
     print("Para acessar o sistema, insira as informações abaixo: ")    
@@ -59,15 +64,49 @@ def opcao2(): #Já possui cadastro
     for usuario in usuarios:
       if usuario.email == email and usuario.senha == senha:
           print("Acesso liberado!")
-          verificacao2 = True
-          break
+          verificacao2 = True          
+          return usuario
     if not verificacao2:
       print("Email e/ou senha inválida!")
-      #Habilitar de menu de cadastro de Pessoas e Imóveis    
+      return None     
 
-def opcao0(): #Sair
+def encerrarSistema(): #Sair
   print("Até breve!")
   
+def menuNavegacao():
+  while True:
+    print("--  PAINEL DE GERENCIAMENTO  --")
+    print("Para iniciar, informe a opção desejada: ")
+    print("1 - Cadastro de Corretor/Cliente/Proprietário")
+    print("2 - Cadastro de Imóveis")
+    print("3 - Cadastro de Contratos")
+    print("0 - Encerrar")
+    opcao02 = int(input("Opção: "))
+    if opcoesMenuNavegacao(opcao02):
+      break
+
+
+def opcoesMenuNavegacao(opcao02):    
+  if opcao02 in [1,2,3,0]:    
+    if opcao02 == 1: #Cadastro de Corretor/Cliente/Proprietário
+      menuPessoas()
+      
+    elif opcao02 == 2: #Cadastro de Imóveis     
+      menuImoveis()
+        #menuNavegacao()
+
+    elif opcao02 == 3: #Cadastro de Contratos
+      menuContratos()
+    
+        
+    elif opcao02 == 0:#Sair
+      encerrarSistema()
+      return True
+    
+  else:
+    print("Opção Inválida!")
+    return False
+
 
 usuarios = list()
 

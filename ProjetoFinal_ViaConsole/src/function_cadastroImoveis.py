@@ -1,8 +1,8 @@
 from imoveis import Imoveis
-from function_cadastroPessoa import opcao2, proprietarios
+from function_cadastroPessoa import cadastroProprietario, proprietarios, busca_proprietario
+from function_login import encerrarSistema
 
-
-def cadastro():
+def menuImoveis():
   while True:
     print()
     print("Escolha uma das opções abaixo:")
@@ -13,67 +13,66 @@ def cadastro():
     if escolha(opcao):
         break
     
-
 def escolha(opcao):    
   if opcao in [1,2,0]:    
     if opcao == 1: #Cadastrar Novo Imóvel
-      opcao01()
+      cadastroImovel()
       
     elif opcao == 2: #Verificar Lista de Imóveis   
-      opcao02()
+      listaImoveis()
     elif opcao == 0:#Sair
-      opcao00()
+      encerrarSistema()
       return True    
   else:
     print("Opção Inválida!")
     return False
 
-def opcao01():  #Cadastrar Novo Imóvel
+def cadastroImovel():  #Cadastrar Novo Imóvel
   print("---------------------------") 
   print("Preencha os campos abaixo:")
-  print("---------NOVO IMÓVEL-------")  
+  print("---------NOVO IMÓVEL-------")
+  cod_imovel = str(input("Código Imóvel: "))  
   endereco = str(input("Rua/Nº/Bairro/Cidade/UF: "))
   proprietario = busca_proprietario()
   tipo_de_imovel = str(input("Residencial ou Comercial: "))
   descricao_imovel = str(input("Descreva o imóvel:"))
   valor_mensal = str(input("Valor Mensal: R$"))
-  novo_imovel = Imoveis(endereco, proprietario, tipo_de_imovel, descricao_imovel,valor_mensal)
-  imovel.append(novo_imovel)
+  novo_imovel = Imoveis(cod_imovel,endereco, proprietario, tipo_de_imovel, descricao_imovel,valor_mensal)
+  imoveis.append(novo_imovel)
   print()
   print("IMÓVEIS CADASTRADOS")
   print(novo_imovel)
 
-def opcao02(): #Verificar Lista de Imóveis
-  if len(imovel) <= 0:
+def listaImoveis(): #Verificar Lista de Imóveis
+  if len(imoveis) <= 0:
     print("Nenhum Imóvel cadastrado")
   else:
     print("----LISTA DE IMÓVEIS----")
-    for item in imovel:
+    for item in imoveis:
       print(item)
       print()
 
-def opcao00(): #Sair
-  print("Encerrando....")
-
-def busca_proprietario():  
-  doc_identificacao = str(input("CPF/CNPJ: "))
-  if len(proprietarios) <= 0:
-    novoProprietario = opcao2()
+# def opcao00(): #Sair
+#   print("Encerrando....")
+     
+def busca_imoveis():
+  novoImovel = None  
+  cod_imovel = str(input("Código Imóvel: "))
+  if len(imoveis) <= 0:
+    novoImovel = cadastroImovel()
   else:   
-    for proprietario in proprietarios:
-      if proprietario.doc_identificacao == doc_identificacao:
-        novoProprietario = proprietario
+    for imovel in imoveis:
+      if imovel.cod_imovel == cod_imovel:
+        novoImovel = imovel
         break       
-    if not novoProprietario:        
-      novoProprietario = opcao2()
+    if not novoImovel:        
+      novoImovel = cadastroImovel()
       
-  print("Proprietário vinculado ao imóvel.")
-  return novoProprietario 
-        
-      
+  print("Imóvel vinculado.")
+  print(novoImovel)
+  return novoImovel        
 
-
-imovel = list()
+imoveis = list()
 print("-"*22)
 print("  PAINEL DE CADASTRO  ")
-cadastro()
+#cadastro()

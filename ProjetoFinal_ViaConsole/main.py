@@ -15,10 +15,9 @@ Use a criatividade para criar o programa, utilize tudo que
  você aprendeu na trilha. Listas, Dicionários, Funções, Classes e
 Condicionais, Loops e etc '''
 
-from src.usuario import Usuario
-from src.function_login import escolha
+from src.function_login import menuPrincipal
 
 
 print("Seja Bem-Vindo(a)!")
 print("Para iniciar, informe a opção desejada: ")
-escolha()
+menuPrincipal()

@@ -1,8 +1,9 @@
-from pessoa import Pessoa,Cliente, Proprietario, Corretor
+from pessoa import Cliente, Proprietario, Corretor
+from function_login import encerrarSistema
 
 print("PAINEL DE CADASTRO")
 
-def cadastro():
+def menuPessoas():
   while True:
     print("Escolha uma das opções abaixo:")
     print("1 - Cadastrar CLIENTE/INQUILINO")
@@ -16,23 +17,22 @@ def cadastro():
 def escolha(opcao):    
   if opcao in [1,2,3,0]:    
     if opcao == 1: #Cadastrar CLIENTE/INQUILINO
-      opcao1()
+      cadastroCliente()
       
     elif opcao == 2: #Cadastrar PROPRIETÁRIO    
-      opcao2()      
+      cadastroProprietario()      
 
     elif opcao == 3: #Cadastrar CORRETOR  
-      opcao3()                   
+      cadastroCorretor()                   
         
     elif opcao == 0:#Sair
-      opcao0()
+      encerrarSistema()
       return True    
   else:
     print("Opção Inválida!")
     return False
 
-
-def opcao1():  #Cadastrar CLIENTE/INQUILINO
+def cadastroCliente():  #Cadastrar CLIENTE/INQUILINO
   print("Preencha os campos abaixo:")
   print("CAMPO CLIENTE")
   nome = str(input("Nome/Razão Social: ")).upper()
@@ -42,14 +42,13 @@ def opcao1():  #Cadastrar CLIENTE/INQUILINO
   endereco = str(input("Rua/Nº/Bairro/Cidade/UF: ")) 
   telefone = str(input("DDD+Telefone: "))
   email = str(input("Email: ")) 
-  novo_cliente = Cliente(nome, tipo_pessoa, doc_identificacao, data, endereco, telefone, email) #nome_fiador, doc_identificacao_fiador, data_fiador, endereco_fiador, telefone_fiador,email_fiador)
-  cliente.append(novo_cliente)
+  novo_cliente = Cliente(nome, tipo_pessoa, doc_identificacao, data, endereco, telefone, email)
+  clientes.append(novo_cliente)
   print("DADOS CADASTRADOS")
   print()
   print(novo_cliente)
 
-
-def opcao2():  #Cadastrar PROPRIETÁRIO
+def cadastroProprietario():  #Cadastrar PROPRIETÁRIO
   print("Preencha os campos abaixo:")
   print("CAMPO PROPRIETÁRIO")
   nome = str(input("Nome/Razão Social: ")).upper()
@@ -67,7 +66,7 @@ def opcao2():  #Cadastrar PROPRIETÁRIO
   print(novo_proprietario)
   return novo_proprietario
 
-def opcao3():  #Cadastrar Corretor
+def cadastroCorretor():  #Cadastrar Corretor
   print("Preencha os campos abaixo:")
   print("CAMPO CORRETOR")
   nome = str(input("Nome/Razão Social: ")).upper()
@@ -80,17 +79,63 @@ def opcao3():  #Cadastrar Corretor
   cadastro_imobiliario = str(input("CRECI: "))
   validade_creci = str(input("Validade CRECI: "))
   novo_corretor = Corretor(nome, tipo_pessoa, doc_identificacao,data, endereco,telefone, email, cadastro_imobiliario, validade_creci)
-  proprietarios.append(novo_corretor)
+  corretores.append(novo_corretor)
   print("DADOS CADASTRADOS")
   print()
   print(novo_corretor)  
 
-def opcao0(): #Sair
-  print("Encerrando....")
 
+def busca_proprietario():
+  print("-- DADOS PROPRIETÁRIO --")  
+  doc_identificacao = str(input("CPF/CNPJ: "))
+  if len(proprietarios) <= 0:
+    novoProprietario = cadastroProprietario()
+  else:   
+    for proprietario in proprietarios:
+      if proprietario.doc_identificacao == doc_identificacao:
+        novoProprietario = proprietario
+        break       
+    if not novoProprietario:        
+      novoProprietario = cadastroProprietario()
+      
+  print("Proprietário vinculado!")
+  return novoProprietario 
+# def encerrarSistema(): #Sair
+#   print("Encerrando....")
 
- 
-cliente = list()
+def busca_corretor():
+  print("-- DADOS CORRETOR --")   
+  doc_identificacao = str(input("CPF/CNPJ: "))
+  if len(corretores) <= 0:
+    novoCorretor = cadastroCorretor()
+  else:   
+    for corretor in corretores:
+      if corretor.doc_identificacao == doc_identificacao:
+        novoCorretor = corretor
+        break       
+    if not novoCorretor:        
+      novoCorretor = cadastroCorretor()
+      
+  print("Corretor vinculado!")
+  return novoCorretor  
+
+def busca_cliente():  
+  print("-- DADOS CLIENTE --") 
+  doc_identificacao = str(input("CPF/CNPJ: "))
+  if len(clientes) <= 0:
+    novoCliente = cadastroCliente()
+  else:   
+    for cliente in clientes:
+      if cliente.doc_identificacao == doc_identificacao:
+        novoCliente = cliente
+        break       
+    if not novoCliente:        
+      novoCliente = cadastroCliente()
+      
+  print("Cliente vinculado.")
+  return novoCliente  
+
+  
+clientes = list()
 proprietarios = list()
-corretor = list()
-#cadastro()
+corretores = list()
