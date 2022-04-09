@@ -1,6 +1,7 @@
 from imoveis import Imoveis
-from function_cadastroPessoa import cadastroProprietario, proprietarios, busca_proprietario
-from function_login import encerrarSistema
+from function_menuProprietario import cadastroProprietario, proprietarios, busca_proprietario
+
+from functions import menuAnterior
 
 def menuImoveis():
   while True:
@@ -8,20 +9,25 @@ def menuImoveis():
     print("Escolha uma das opções abaixo:")
     print("1 - Cadastrar NOVO IMÓVEL")
     print("2 - Verificar Lista de Imóveis")
-    print("0 - Encerrar")
+    print("3 - Deletar Imóvel")
+    print("0 - Retornar ao Menu anterior/Encerrar")
     opcao = int(input("Opção: "))
-    if escolha(opcao):
+    if escolhaImovel(opcao):
         break
     
-def escolha(opcao):    
-  if opcao in [1,2,0]:    
+def escolhaImovel(opcao):    
+  if opcao in [1,2,3,0]:    
     if opcao == 1: #Cadastrar Novo Imóvel
       cadastroImovel()
       
     elif opcao == 2: #Verificar Lista de Imóveis   
       listaImoveis()
-    elif opcao == 0:#Sair
-      encerrarSistema()
+
+    elif opcao == 3: #Deletar Imóvel
+      deletarImovel()
+    
+    elif opcao == 0:# Retornar
+      menuAnterior()
       return True    
   else:
     print("Opção Inválida!")
@@ -40,20 +46,21 @@ def cadastroImovel():  #Cadastrar Novo Imóvel
   novo_imovel = Imoveis(cod_imovel,endereco, proprietario, tipo_de_imovel, descricao_imovel,valor_mensal)
   imoveis.append(novo_imovel)
   print()
-  print("IMÓVEIS CADASTRADOS")
+  print("***** IMÓVEIS CADASTRADOS *****")
   print(novo_imovel)
+  return novo_imovel
 
 def listaImoveis(): #Verificar Lista de Imóveis
   if len(imoveis) <= 0:
     print("Nenhum Imóvel cadastrado")
   else:
-    print("----LISTA DE IMÓVEIS----")
+    print("-------------------------------")
+    print("       LISTA DE IMÓVEIS        ")
+    print("-------------------------------")
     for item in imoveis:
       print(item)
       print()
 
-# def opcao00(): #Sair
-#   print("Encerrando....")
      
 def busca_imoveis():
   novoImovel = None  
@@ -72,7 +79,22 @@ def busca_imoveis():
   print(novoImovel)
   return novoImovel        
 
+
+def deletarImovel():
+  imovelDel = False
+  print("-- Para DELETAR CORRETOR, preencha os dados abaixo: --")  
+  cod_imovel = str(input("Código do Imóvel: "))
+  if len(imoveis) <= 0:
+    print("Imóvel não localizado!")
+  else:   
+    for imovel in imoveis:
+      if imovel.cod_imovel == cod_imovel:
+        imoveis.remove(imovel)
+        print("Imóvel excluído!")
+        imovelDel = True
+        break
+    if imovelDel == False:        
+      print("Imóvel não localizado!")
+
 imoveis = list()
-print("-"*22)
-print("  PAINEL DE CADASTRO  ")
-#cadastro()
+

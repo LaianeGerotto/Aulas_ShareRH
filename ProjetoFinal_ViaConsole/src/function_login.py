@@ -1,9 +1,10 @@
 import getpass
 
 from usuario import Usuario
-# from function_cadastroPessoa import menuPessoas
-# from function_cadastroImoveis import menuImoveis
-# from function_contratos import menuContratos
+from function_menuPessoa import menuPessoas
+from function_menuImoveis import menuImoveis
+from function_menuContratos import menuContratos
+from functions import encerrarSistema, menuAnterior
 
 def menuPrincipal():
   while True:
@@ -11,10 +12,10 @@ def menuPrincipal():
     print("2 - Já sou cadastrado")
     print("0 - Encerrar")
     opcao01 = int(input("Opção: "))
-    if opcoesMenuPrincial(opcao01):
+    if opcoesMenuPrincipal(opcao01):
       break
 
-def opcoesMenuPrincial(opcao01):    
+def opcoesMenuPrincipal(opcao01):    
   if opcao01 in [1,2,0]:    
     if opcao01 == 1: #Novo usuário
       novoUsuario()
@@ -44,8 +45,8 @@ def novoUsuario():  #Novo usuário
         email_ok = False
         break               
 
-  while True:
-    senha = getpass.getpass("Senha: ")
+  while True: 
+    senha = getpass.getpass("Senha: ") #A senha não será exibida no Console
     confirmacao_senha = getpass.getpass("Confirme sua senha: ")
     if senha != confirmacao_senha:
       print("Senha divergente!")
@@ -60,7 +61,7 @@ def usuarioJaCadastrado(): #Já possui cadastro
   while not verificacao2:
     print("Para acessar o sistema, insira as informações abaixo: ")    
     email = input("Email: ")    
-    senha = getpass.getpass("Senha: ")
+    senha = getpass.getpass("Senha: ") #A senha não será exibida no Console
     for usuario in usuarios:
       if usuario.email == email and usuario.senha == senha:
           print("Acesso liberado!")
@@ -70,17 +71,17 @@ def usuarioJaCadastrado(): #Já possui cadastro
       print("Email e/ou senha inválida!")
       return None     
 
-def encerrarSistema(): #Sair
-  print("Até breve!")
   
 def menuNavegacao():
   while True:
-    print("--  PAINEL DE GERENCIAMENTO  --")
+    print("-------------------------------")
+    print("    PAINEL DE GERENCIAMENTO    ")
+    print("-------------------------------")
     print("Para iniciar, informe a opção desejada: ")
-    print("1 - Cadastro de Corretor/Cliente/Proprietário")
-    print("2 - Cadastro de Imóveis")
-    print("3 - Cadastro de Contratos")
-    print("0 - Encerrar")
+    print("1 - Menu Corretor/Cliente/Proprietário")
+    print("2 - Menu de Imóveis")
+    print("3 - Menu de Contratos")
+    print("0 - Retornar ao Menu anterior/Encerrar")
     opcao02 = int(input("Opção: "))
     if opcoesMenuNavegacao(opcao02):
       break
@@ -99,8 +100,8 @@ def opcoesMenuNavegacao(opcao02):
       menuContratos()
     
         
-    elif opcao02 == 0:#Sair
-      encerrarSistema()
+    elif opcao02 == 0:#Retornar
+      menuAnterior()
       return True
     
   else:

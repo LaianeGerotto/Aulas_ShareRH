@@ -15,9 +15,10 @@ Use a criatividade para criar o programa, utilize tudo que
  você aprendeu na trilha. Listas, Dicionários, Funções, Classes e
 Condicionais, Loops e etc '''
 
-from src.function_login import menuPrincipal
-
+from function_login import menuPrincipal
+from seed import cria_registros
 
 print("Seja Bem-Vindo(a)!")
 print("Para iniciar, informe a opção desejada: ")
+cria_registros()
 menuPrincipal()

@@ -1,9 +1,15 @@
 from pessoa import Cliente, Proprietario, Corretor
 from imoveis import Imoveis
-from function_cadastroPessoa import proprietarios, clientes, corretores
-from function_cadastroImoveis import imoveis
+from function_menuProprietario import proprietarios
+from function_menuCliente import clientes
+from function_menuCorretor import corretores
+from function_menuImoveis import imoveis
+from usuario import Usuario
+from function_login import usuarios
 
 def cria_registros():
+  usuario1 = Usuario("teste", "teste@teste", "teste")
+
   proprietario1 = Proprietario("Meg Cristina", "Fisica","123456","10/07/2014","Rua Vira Lata Caramelo, nº 10 - Bairro: LadyDog, Cidade: Doguinho - Dogs/BR", "1111","meg@gmail.com")
   proprietario2 = Proprietario("Chokito Roberto", "Fisica","987654","01/07/2000","Rua Basset, nº 01 - Bairro: Canino, Cidade: Doguinho - Dogs/BR", "2222","chokito@gmail.com")
 
@@ -22,3 +28,4 @@ def cria_registros():
   corretores.append(corretor1)
   imoveis.append(imovel1)
   imoveis.append(imovel2)
+  usuarios.append(usuario1)
