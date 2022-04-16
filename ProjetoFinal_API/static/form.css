@@ -1,0 +1,91 @@
+@charset "UTF-8";
+*{
+  margin: 0;
+  padding: 0;
+}
+
+#titulo{
+  font-family: sans-serif;
+  color:rgb(75, 10, 92);
+  margin-left: -5%;
+}
+
+fieldset{
+  border: 0;
+}
+
+body{
+  background-color: rgb(224, 189, 222);
+  font-family: sans-serif;
+  font-size: 1em;
+  color: 59429d;
+  margin-left: 36%;
+  margin-top: 2%;
+  justify-content: center;
+  /*Plano de Fundo*/
+  background-image: url("/static/images/casa.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+/* bordas dos campos */
+input, select,textarea, button{
+  border-radius: 5px;
+}
+
+/*Distância dos campos x topo */
+.campo{
+  margin-bottom: 1em;
+}
+
+/*cores das letras dos campos */
+.campo label{
+  margin-bottom: 00.2em;
+  color:#59429d;
+  display: block;
+}
+
+fieldset.grupo .campo{
+  float: left;
+  margin-right: 1em;
+}
+
+.campo input[type='text'], .campo input[type='email'], .campo select, .campo textarea {
+  padding: 0.4em;
+  border: 1px solid #59429d;
+  box-shadow: 2px 2px 2px rgba(0, 0,0,0.2);
+  display: block;
+  width: 6.5cm;
+}
+
+
+.campo select option{
+  padding-right: 1em;
+}
+
+.campo input:focus, .campo select:focus, .campo textarea>:focus{
+  background: #E0E0F8;
+}
+
+.botao{
+  font-size: 1.2em;
+  background: #594259;
+  border: 0;
+  margin-bottom: 1em;
+  color: #ffffff;
+  padding: 0.2em 0.6em;
+  box-shadow: 2px 2px 2px rgba(0, 0,0,0.2);
+  text-shadow: 1px 1px 1px rgba(0, 0,0,0.5) ;
+  position: absolute;
+  top: 90%;
+  left: 50%;
+  margin-right: -50%;
+  transform: translate(-50%,-50%);
+}
+
+.botao:hover{
+  background: #ccbbff;
+  box-shadow: inset 2px 2px 2px rgba(0, 0,0,0.2);
+  text-shadow: none;
+}

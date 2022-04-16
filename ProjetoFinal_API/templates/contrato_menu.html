@@ -1,0 +1,33 @@
+<html>
+  <body>    
+    <a href="/contrato_cadastro">Novo Contrato</a>
+    <h3>Lista de Contratos</a></h3>
+    <table>
+      <thead>
+         <tr>
+            <th>Código do Contrato</th>
+            <th>Início do Contrato</th>
+            <th>Término do Contrato</th>
+            <th>Cliente</th>
+            <th>Corretor</th>
+            <th>Proprietário</th>
+            <th>Descrição do Imóvel</th>
+         </tr>
+      </thead>    
+      <tbody>
+        {% for contrato in contratos %}
+        <tr>
+          <td> {{contrato.id_imovel}}</td>
+          <td> {{contrato.inicio_contrato}}</td>
+          <td> {{contrato.termino_contrato}}</td>
+          <td> {{contrato.id_cliente}}</td>
+          <td> {{contrato.id_corretor}}</td>
+          <td> {{contrato.id_id_proprietario}}</td>
+          <td> {{contrato.id_imovel.descricao_imovel}}</td>
+          
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>    
+  </body>
+</html>

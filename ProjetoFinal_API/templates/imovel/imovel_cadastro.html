@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/static/form1.css">
+  <title>Cadastro de Corretor</title>
+</head>
+<body>  
+  
+  <div class="container">
+    <div class="form-image">
+      <img src="/static/images/cadastro.svg">
+    </div>
+    <div class="form">
+      <form action = "{{ request.path }}" method = "post">
+        <div class="form-header">          
+          <div class="'title">
+            <h1>Corretor</h1>
+            
+          </div>
+          <div class="retorno">
+            <button><a href="/menuNavegacao">Retornar</a></button>
+            <button><a href="/imovel_menu">Lista de Imóveis</a></button>
+          </div>
+        </div>
+        <div class="input-box">
+          <h4>Preencha os campos abaixo:</h4>
+        </div>
+
+        <div class="input-group">
+          <div class="input-box">            
+            <label><strong>ENDEREÇO</strong></label>
+            <input type="text" name="endereco" required/><br>
+            <label><strong>CIDADE</strong></label>
+            <input type="text" name="cidade" required/><br>
+            <label><strong>ESTADO</strong></label>
+            <input type="text" name="estado" required/><br>
+            <label><strong>CEP</strong></label>
+            <input type="text" name="cep" required/><br>
+          </div>
+
+          <div class="input-box">
+            <label><strong>NOME DO PROPRIETARIO - BUSCAR ID</strong></label>
+            <input type="text" name ="proprietario"required/>
+          </div>
+
+          <div class="person-inputs">
+            <div class="person-title">
+              <h6>TIPO DO IMÓVEL</h6> 
+            </div>
+            <div class="person-group">
+              <div class="person-input">       
+                <input type="radio" name ="tipo_imovel" value="Residencial"required>
+                <label for="none">Residencial</label>
+              </div>
+              <div class="person-input">           
+                <input type="radio" name ="tipo_imovel" value="Comercial">
+                <label for="none">Comercial</label>
+              </div>
+            </div> 
+          </div>
+
+          <div class="input-box">
+            <label><strong>DESCRIÇÃO DO IMÓVEL</strong></label>
+            <input type="textarea" name ="descricao_imovel" required/>
+          </div>
+          </div>          
+        </div>
+        <div class="continue-button">
+          <button><a class="botao" type="submit" value="Cadastrar">Cadastrar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  
+</body>
+</html>

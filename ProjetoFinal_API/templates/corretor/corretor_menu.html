@@ -1,0 +1,32 @@
+<html>
+  <body>
+    <a href="/menuNavegacao">MENU</a>    
+    <a href="/corretor_cadastro">Novo Corretor</a>
+    <h3>Lista de Corretores</a></h3>
+    <table>
+      <thead>
+         <tr>
+            <th>Nome</th>
+            <th>Telefone</th>
+            <th>Email </th>
+            <td></td>
+         </tr>
+      </thead>    
+      <tbody>
+        {% for corretor in corretores %}
+        <tr>
+          <td> {{corretor.nome}}</td>
+          <td> {{corretor.telefone}}</td>
+          <td> {{corretor.email}}</td>
+          <td> <a href="/corretor_alterar/{{corretor.id}}">Alterar Dados</a></td>
+          <td> <a href="/corretor_visualizar/{{corretor.id}}">Detalhes</a></td>
+          <td> <a href="/corretor_menu/{{corretor.id}}/delete">Deletar</a></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+
+    </table>
+
+    
+  </body>
+</html>

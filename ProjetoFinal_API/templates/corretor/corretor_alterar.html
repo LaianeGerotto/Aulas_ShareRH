@@ -1,0 +1,17 @@
+<html>
+  <body>    
+    <a href="/menuNavegacao">Retornar</a>
+    <a href="/corretor_menu">Lista de Corretores</a>
+    <h3>Alteração de Dados</a></h3>
+    <form action = "{{ request.path }}" method = "post">
+      <input type="text" name="nome" placeholder="Nome" value="{{corretor.nome}}"/><br>
+      <input type="text" name ="cpf_cnpj" placeholder ="CPF/CNPJ" value="{{corretor.cpf_cnpj}}"/><br>
+      <input type="text" name ="tipo_pessoa" placeholder ="Fisica ou Juridica"value="{{corretor.tipo_pessoa}}"/><br>
+      <input type="text" name ="telefone" placeholder ="(DDD)Telefone" value="{{corretor.telefone}}"/><br>
+      <input type="text" name="email" placeholder="Email" value="{{corretor.email}}"/><br>
+      <input type="submit" value="Alterar" />
+   </form>
+   
+    
+  </body>
+</html>

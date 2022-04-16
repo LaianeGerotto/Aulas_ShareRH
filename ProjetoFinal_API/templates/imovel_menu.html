@@ -1,0 +1,35 @@
+<html>
+  <body>    
+    <a href="/imovel_cadastro">Novo Imovel</a>
+    <h3>Lista de Imóveis</a></h3>
+    <table>
+      <thead>
+         <tr>
+            <th>Código</th>
+            <th>Endereço</th>
+            <th>Cidade</th>
+            <th>Estado</th>
+            <th>CEP</th>
+            <th>Tipo do Imóvel</th>
+            <th>Descrição do Imóvel</th>
+            <th>Proprietário</th>
+         </tr>
+      </thead>    
+      <tbody>
+        {% for imovel in imoveis %}
+        <tr>
+          <td> {{imovel.id_imovel}}</td>
+          <td> {{imovel.endereco}}</td>
+          <td> {{imovel.cidade}}</td>
+          <td> {{imovel.estado}}</td>
+          <td> {{imovel.cep}}</td>
+          <td> {{imovel.tipo_imovel}}</td>
+          <td> {{imovel.descricao_imovel}}</td>
+          <td> {{imovel.id_proprietario}}</td>
+          
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>    
+  </body>
+</html>

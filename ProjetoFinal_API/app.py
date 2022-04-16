@@ -1,6 +1,7 @@
 
-from urllib import response
-from flask import Flask, request
+#from crypt import methods
+from os import abort
+from flask import Flask, flash, redirect, render_template, request, url_for, render_template
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 
@@ -8,6 +9,7 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://postgres:root@localhost:5432/imobiliaria"
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
+app.config['SECRET_KEY'] = "random string"
 
 class Cliente(db.Model):
   __tablename__ = 'clientes'
@@ -389,21 +391,21 @@ class Imovel(db.Model):
       return {"Mensagem": f"Imóvel {imovel.id} deletado com sucesso!"}
 
 
-
-
 class Contrato(db.Model):
   __tablename__ = 'contratos'
 
   id = db.Column(db.Integer, primary_key=True)
   inicio_contrato = db.Column(db.String())
   termino_contrato = db.Column(db.String())
+  valor = db.Column(db.String())
   id_cliente = db.Column(db.Integer, db.ForeignKey('clientes.id'), nullable=False) 
   id_corretor = db.Column(db.Integer, db.ForeignKey('corretores.id'), nullable=False)
   id_imovel = db.Column(db.Integer, db.ForeignKey('imoveis.id'), nullable=False)
 
-  def __init__(self, inicio_contrato, termino_contrato, id_cliente, id_corretor, id_imovel):
+  def __init__(self, inicio_contrato, termino_contrato, valor, id_cliente, id_corretor, id_imovel):
     self.inicio_contrato = inicio_contrato
     self.termino_contrato = termino_contrato
+    self.valor = valor
     self.id_cliente = id_cliente
     self.id_corretor = id_corretor
     self.id_imovel = id_imovel
@@ -416,7 +418,7 @@ class Contrato(db.Model):
     if request.method == 'POST':
       if request.is_json:
         data = request.get_json()
-        novo_contrato = Contrato(inicio_contrato=data['inicio_contrato'], termino_contrato=data['termino_contrato'], id_cliente=data['id_cliente'], id_corretor=data['id_corretor'], id_imovel=data['id_imovel'])
+        novo_contrato = Contrato(inicio_contrato=data['inicio_contrato'], termino_contrato=data['termino_contrato'], valor=data['valor'], id_cliente=data['id_cliente'], id_corretor=data['id_corretor'], id_imovel=data['id_imovel'])
         db.session.add(novo_contrato)
         db.session.commit()
         return {'Mensagem': f"Contrato {novo_contrato.id} foi criado com sucesso."}
@@ -429,6 +431,7 @@ class Contrato(db.Model):
         {          
           'inicio_contrato': contrato.inicio_contrato,
           'termino_contrato': contrato.termino_contrato,
+          'valor': contrato.valor,
           'cliente': {
             'nome': contrato.cliente.nome
           },
@@ -453,6 +456,7 @@ class Contrato(db.Model):
       response = {         
           'inicio_contrato': contrato.inicio_contrato,
           'termino_contrato': contrato.termino_contrato,
+          'valor': contrato.valor,
           'cliente': {
             'nome': contrato.cliente.nome
           },
@@ -471,6 +475,7 @@ class Contrato(db.Model):
       data = request.get_json()      
       contrato.inicio_contrato = data['inicio_contrato']
       contrato.cidade=data['termino_contrato']
+      contrato.valor=data['valor']
       contrato.id_cliente=data['id_cliente']
       contrato.id_corretor=data['id_corretor']
       contrato.id_imovel=data['id_imovel']
@@ -482,6 +487,109 @@ class Contrato(db.Model):
       db.session.delete(contrato)
       db.session.commit()
       return {"Mensagem": f"Contrato {contrato.id} deletado com sucesso!"}
+
+
+@app.route('/')
+def open_login():
+  return render_template('login.html')
+
+@app.route('/login', methods=['POST', 'GET'])
+def login():
+  if request.method=='POST':
+    user = request.form['nm']
+    password = request.form['password']
+    return redirect(url_for('Sucesso', name = user, password = password))
+  else:
+    user = request.args.get('nm')
+    password = request.form['password']
+    return redirect(url_for('Sucesso', name = user, password = password))
+
+
+@app.route('/menuNavegacao', methods=['POST', 'GET'])
+def menuNavegacao():
+  return render_template('menuNavegacao.html')
+
+@app.route('/corretor_menu', methods=['POST', 'GET'])
+def corretor_menu():
+  corretores = Corretor.query.order_by("id").all()
+  return render_template('corretor/corretor_menu.html', corretores = corretores)
+
+@app.route('/contrato_menu', methods=['POST', 'GET'])
+def contrato_menu():
+  return render_template('contrato_menu.html', contratos = Contrato.query.all())
+
+@app.route('/cliente_menu', methods=['POST', 'GET'])
+def cliente_menu():
+  return render_template('cliente_menu.html', clientes = Cliente.query.all())
+
+@app.route('/imovel_menu', methods=['POST', 'GET'])
+def imovel_menu():
+  return render_template('imovel_menu.html', imoveis = Imovel.query.all())
+
+@app.route('/proprietario_menu', methods=['POST', 'GET'])
+def proprietario_menu():
+  return render_template('proprietario_menu.html', proprietarios = Proprietario.query.all())
+
+
+@app.route('/corretor_cadastro', methods = ['GET', 'POST'])
+def corretor_cadastro():
+  if request.method == 'POST':
+    if not request.form['nome'] or not request.form['cpf_cnpj'] or not request.form['tipo_pessoa'] or not request.form['telefone'] or not request.form['email']:
+      flash('Por favor, insira todos os campos', 'error')
+    else:
+      corretor = Corretor(request.form['nome'], request.form['cpf_cnpj'],request.form['tipo_pessoa'], request.form['telefone'], request.form['email'])
+      db.session.add(corretor)
+      db.session.commit()
+      flash('Cadastro realizado!')
+      return redirect(url_for('corretor_menu'))
+  return render_template('corretor/corretor_cadastro.html')
+
+
+@app.route('/corretor_alterar/<corretor_id>', methods=['GET', 'POST'])
+def corretor_alterar(corretor_id):
+  corretor = Corretor.query.get_or_404(corretor_id)
+  if request.method == 'POST':    
+      corretor.nome = request.form['nome']
+      corretor.cpf_cnpj = request.form['cpf_cnpj']
+      corretor.tipo_pessoa = request.form['tipo_pessoa']
+      corretor.telefone=request.form['telefone']
+      corretor.email=request.form['email']
+      db.session.add(corretor)
+      db.session.commit()
+      flash('Atulização realizada!')
+      return redirect(url_for('corretor_menu'))
+  return render_template('corretor/corretor_alterar.html', corretor = corretor)
+
+@app.route('/corretor_visualizar/<corretor_id>', methods=['GET'])
+def corretor_visualizar(corretor_id):
+  corretor = Corretor.query.get_or_404(corretor_id)          
+  return render_template('corretor/corretor_visualizar.html', corretor = corretor)
+  
+
+@app.route('/corretor_menu/<corretor_id>/delete', methods=['GET','POST'])
+def delete(corretor_id):
+  corretor = Corretor.query.get_or_404(corretor_id)
+  if request.method == 'POST':
+    if corretor:
+      db.session.delete(corretor)
+      db.session.commit()
+      return redirect('/corretor_menu')
+    abort(404)
+  return render_template('delete.html', link_cancelar='corretor_menu')
+
+@app.route('/imovel_cadastro', methods = ['GET', 'POST'])
+def imovel_cadastro():
+  if request.method == 'POST':
+    if not request.form['endereco'] or not request.form['cidade'] or not request.form['estado'] or not request.form['cep'] or not request.form['proprietario'] or not request.form['tipo_de_imovel'] or not request.form['descricao_imovel']:
+      flash('Por favor, insira todos os campos', 'error')
+    else:
+      imovel = Imovel(request.form['endereco'], request.form['cidade'],request.form['estado'], request.form['cep'], request.form['proprietario'], request.form['tipo_imovel'], request.form['descricao_imovel'])
+      db.session.add(imovel)
+      db.session.commit()
+      flash('Cadastro realizado!')
+      return redirect(url_for('imovel_menu'))
+  return render_template('imovel/imovel_cadastro.html')
+
 
 if __name__ == '__main__':
   app.run(debug=True)
