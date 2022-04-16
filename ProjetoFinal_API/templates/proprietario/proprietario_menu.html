@@ -1,0 +1,32 @@
+<html>
+  <body>
+    <a href="/menuNavegacao">MENU</a>    
+    <a href="/proprietario_cadastro">Novo Proprietário</a>
+    <h3>Lista de Proprietarios</a></h3>
+    <table>
+      <thead>
+         <tr>
+            <th>Nome</th>
+            <th>Telefone</th>
+            <th>Email </th>
+            <td></td>
+         </tr>
+      </thead>    
+      <tbody>
+        {% for proprietario in proprietarios %}
+        <tr>
+          <td> {{proprietario.nome}}</td>
+          <td> {{proprietario.telefone}}</td>
+          <td> {{proprietario.email}}</td>
+          <td> <a href="/proprietario_alterar/{{proprietario.id}}">Alterar Dados</a></td>
+          <td> <a href="/proprietario_visualizar/{{proprietarioid}}">Detalhes</a></td>
+          <td> <a href="/proprietario_menu/{{proprietario.id}}/delete">Deletar</a></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+
+    </table>
+
+    
+  </body>
+</html>

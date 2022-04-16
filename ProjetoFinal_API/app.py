@@ -509,27 +509,95 @@ def login():
 def menuNavegacao():
   return render_template('menuNavegacao.html')
 
+
+##CONTRATO
+@app.route('/contrato_menu', methods=['POST', 'GET'])
+def contrato_menu():
+  return render_template('contrato/contrato_menu.html', contratos = Contrato.query.all())
+
+
+##CLIENTE
+@app.route('/cliente_menu', methods=['POST', 'GET'])
+def cliente_menu():
+  return render_template('cliente/cliente_menu.html', clientes = Cliente.query.all())
+
+@app.route('/cliente_cadastro', methods = ['GET', 'POST'])
+def cliente_cadastro():
+  if request.method == 'POST':
+    if not request.form['nome'] or not request.form['cpf_cnpj'] or not request.form['tipo_pessoa'] or not request.form['endereco'] or not request.form['cidade'] or not request.form['estado'] or not request.form['cep']or not request.form['telefone'] or not request.form['email']:
+      flash('Por favor, insira todos os campos', 'error')
+    else:
+      cliente = Cliente(request.form['nome'], request.form['cpf_cnpj'],request.form['tipo_pessoa'], request.form['endereco'], request.form['cidade'],request.form['estado'], request.form['cep'], request.form['telefone'], request.form['email'])
+      db.session.add(cliente)
+      db.session.commit()
+      flash('Cadastro realizado!')
+      return redirect(url_for('cliente_menu'))
+  return render_template('cliente/cliente_cadastro.html')
+
+
+
+## IMOVEL
+@app.route('/imovel_menu', methods=['POST', 'GET'])
+def imovel_menu():
+  return render_template('imovel/imovel_menu.html', imoveis = Imovel.query.all())
+
+@app.route('/imovel_cadastro', methods = ['GET', 'POST'])
+def imovel_cadastro():
+  if request.method == 'POST':
+    if not request.form['endereco'] or not request.form['cidade'] or not request.form['estado'] or not request.form['cep'] or not request.form['proprietario'] or not request.form['tipo_de_imovel'] or not request.form['descricao_imovel']:
+      flash('Por favor, insira todos os campos', 'error')
+    else:
+      imovel = Imovel(request.form['endereco'], request.form['cidade'],request.form['estado'], request.form['cep'], request.form['proprietario'], request.form['tipo_imovel'], request.form['descricao_imovel'])
+      db.session.add(imovel)
+      db.session.commit()
+      flash('Cadastro realizado!')
+      return redirect(url_for('imovel_menu'))
+  proprietarios = Proprietario.query.all()
+  return render_template('imovel/imovel_cadastro.html', proprietarios = proprietarios)
+
+@app.route('/imovel_alterar/<imovel_id>', methods=['GET', 'POST'])
+def imovel_alterar(imovel_id):
+  imovel = Imovel.query.get_or_404(imovel_id)
+  if request.method == 'POST':    
+      imovel.endereco = request.form['endereco']
+      imovel.cidade = request.form['cidade']
+      imovel.estado = request.form['estado']
+      imovel.cep=request.form['cep']
+      imovel.tipo_imovel=request.form['tipo_imovel']
+      imovel.descricao_imovel=request.form['descricao_imovel']
+      imovel.id_proprietario=request.form['id_proprietario']
+      db.session.add(imovel)
+      db.session.commit()
+      flash('Atulização realizada!')
+      return redirect(url_for('imovel_menu'))
+  proprietarios = Proprietario.query.all()    
+  return render_template('imovel/imovel_alterar.html', imovel = imovel, proprietarios = proprietarios)
+
+
+
+##PROPRIETARIO
+@app.route('/proprietario_menu', methods=['POST', 'GET'])
+def proprietario_menu():
+  return render_template('proprietario/proprietario_menu.html', proprietarios = Proprietario.query.all())
+
+@app.route('/proprietario_cadastro', methods = ['GET', 'POST'])
+def proprietario_cadastro():
+  if request.method == 'POST':
+    if not request.form['nome'] or not request.form['cpf_cnpj'] or not request.form['tipo_pessoa'] or not request.form['endereco'] or not request.form['cidade'] or not request.form['estado'] or not request.form['cep']or not request.form['telefone'] or not request.form['email']:
+      flash('Por favor, insira todos os campos', 'error')
+    else:
+      proprietario = Proprietario(request.form['nome'], request.form['cpf_cnpj'],request.form['tipo_pessoa'], request.form['endereco'], request.form['cidade'],request.form['estado'], request.form['cep'], request.form['telefone'], request.form['email'])
+      db.session.add(proprietario)
+      db.session.commit()
+      flash('Cadastro realizado!')
+      return redirect(url_for('proprietario_menu'))
+  return render_template('proprietario/proprietario_cadastro.html')
+
+#CORRETOR
 @app.route('/corretor_menu', methods=['POST', 'GET'])
 def corretor_menu():
   corretores = Corretor.query.order_by("id").all()
   return render_template('corretor/corretor_menu.html', corretores = corretores)
-
-@app.route('/contrato_menu', methods=['POST', 'GET'])
-def contrato_menu():
-  return render_template('contrato_menu.html', contratos = Contrato.query.all())
-
-@app.route('/cliente_menu', methods=['POST', 'GET'])
-def cliente_menu():
-  return render_template('cliente_menu.html', clientes = Cliente.query.all())
-
-@app.route('/imovel_menu', methods=['POST', 'GET'])
-def imovel_menu():
-  return render_template('imovel_menu.html', imoveis = Imovel.query.all())
-
-@app.route('/proprietario_menu', methods=['POST', 'GET'])
-def proprietario_menu():
-  return render_template('proprietario_menu.html', proprietarios = Proprietario.query.all())
-
 
 @app.route('/corretor_cadastro', methods = ['GET', 'POST'])
 def corretor_cadastro():
@@ -543,7 +611,6 @@ def corretor_cadastro():
       flash('Cadastro realizado!')
       return redirect(url_for('corretor_menu'))
   return render_template('corretor/corretor_cadastro.html')
-
 
 @app.route('/corretor_alterar/<corretor_id>', methods=['GET', 'POST'])
 def corretor_alterar(corretor_id):
@@ -577,18 +644,7 @@ def delete(corretor_id):
     abort(404)
   return render_template('delete.html', link_cancelar='corretor_menu')
 
-@app.route('/imovel_cadastro', methods = ['GET', 'POST'])
-def imovel_cadastro():
-  if request.method == 'POST':
-    if not request.form['endereco'] or not request.form['cidade'] or not request.form['estado'] or not request.form['cep'] or not request.form['proprietario'] or not request.form['tipo_de_imovel'] or not request.form['descricao_imovel']:
-      flash('Por favor, insira todos os campos', 'error')
-    else:
-      imovel = Imovel(request.form['endereco'], request.form['cidade'],request.form['estado'], request.form['cep'], request.form['proprietario'], request.form['tipo_imovel'], request.form['descricao_imovel'])
-      db.session.add(imovel)
-      db.session.commit()
-      flash('Cadastro realizado!')
-      return redirect(url_for('imovel_menu'))
-  return render_template('imovel/imovel_cadastro.html')
+
 
 
 if __name__ == '__main__':

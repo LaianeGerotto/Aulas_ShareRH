@@ -5,19 +5,19 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="/static/form1.css">
-  <title>Cadastro de Corretor</title>
+  <title>Cadastro de Imóvel</title>
 </head>
 <body>  
   
   <div class="container">
     <div class="form-image">
-      <img src="/static/images/cadastro.svg">
+      <img src="/static/images/casa e rota.svg">
     </div>
     <div class="form">
       <form action = "{{ request.path }}" method = "post">
         <div class="form-header">          
           <div class="'title">
-            <h1>Corretor</h1>
+            <h1>Novo Imóvel</h1>
             
           </div>
           <div class="retorno">
@@ -33,17 +33,29 @@
           <div class="input-box">            
             <label><strong>ENDEREÇO</strong></label>
             <input type="text" name="endereco" required/><br>
+          </div>
+          <div class="input-box"> 
             <label><strong>CIDADE</strong></label>
-            <input type="text" name="cidade" required/><br>
+            <input type="text" name="cidade" required/><br>            
+          </div>
+          <div class="input-box">   
             <label><strong>ESTADO</strong></label>
             <input type="text" name="estado" required/><br>
+          </div>
+          <div class="input-box"> 
             <label><strong>CEP</strong></label>
             <input type="text" name="cep" required/><br>
-          </div>
-
+          </div>       
+        </div>
+        <div class="input-group">
           <div class="input-box">
             <label><strong>NOME DO PROPRIETARIO - BUSCAR ID</strong></label>
-            <input type="text" name ="proprietario"required/>
+            <select name ="id_proprietario" required> 
+              {% for proprietario in proprietarios %}
+                <option value="{{proprietario.id}}">{{ proprietario.nome }}</option>
+              {% endfor %}
+              
+            </select>
           </div>
 
           <div class="person-inputs">
@@ -64,12 +76,11 @@
 
           <div class="input-box">
             <label><strong>DESCRIÇÃO DO IMÓVEL</strong></label>
-            <input type="textarea" name ="descricao_imovel" required/>
+            <textarea type="text" name ="descricao_imovel" required></textarea>
           </div>
-          </div>          
         </div>
         <div class="continue-button">
-          <button><a class="botao" type="submit" value="Cadastrar">Cadastrar</button>
+          <button><a class="botao" type="submit" value="Cadastrar">Cadastrar</a></button>
         </div>
       </form>
     </div>

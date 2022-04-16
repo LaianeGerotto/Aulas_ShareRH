@@ -1,26 +1,28 @@
 <html>
   <body>
     <a href="/menuNavegacao">MENU</a>    
-    <a href="/imovel_cadastro">Novo Corretor</a>
-    <h3>Lista de Corretores</a></h3>
+    <a href="/imovel_cadastro">Novo Imovel</a>
+    <h3>Lista de Imoveis</a></h3>
     <table>
       <thead>
          <tr>
-            <th>Nome</th>
-            <th>Telefone</th>
-            <th>Email </th>
+            <th>Código</th>
+            <th>Tipo de Imóvel</th>
+            <th>Proprietario</th>
+            <th>Descrição</th>
             <td></td>
          </tr>
       </thead>    
       <tbody>
-        {% for corretor in corretores %}
+        {% for imovel in imoveis %}
         <tr>
-          <td> {{corretor.nome}}</td>
-          <td> {{corretor.telefone}}</td>
-          <td> {{corretor.email}}</td>
-          <td> <a href="/imovel_alterar/{{corretor.id}}">Alterar Dados</a></td>
-          <td> <a href="/imovel_visualizar/{{corretor.id}}">Detalhes</a></td>
-          <td> <a href="/imovel_menu/{{corretor.id}}/delete">Deletar</a></td>
+          <td> {{imovel.id}}</td>
+          <td> {{imovel.tipo_imovel}}</td>
+          <td> {{imovel.proprietario.nome}}</td>
+          <td> {{imovel.descricao}}</td>
+          <td> <a href="/imovel_alterar/{{imovel.id}}">Alterar Dados</a></td>
+          <td> <a href="/imovel_visualizar/{{imovel.id}}">Detalhes</a></td>
+          <td> <a href="/imovel_menu/{{imovel.id}}/delete">Deletar</a></td>
         </tr>
         {% endfor %}
       </tbody>

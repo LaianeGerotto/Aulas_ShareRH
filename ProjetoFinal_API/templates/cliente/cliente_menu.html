@@ -1,0 +1,32 @@
+<html>
+  <body>
+    <a href="/menuNavegacao">MENU</a>    
+    <a href="/cliente_cadastro">Novo Cliente</a>
+    <h3>Lista de Clientes</a></h3>
+    <table>
+      <thead>
+         <tr>
+            <th>Nome</th>
+            <th>Telefone</th>
+            <th>Email </th>
+            <td></td>
+         </tr>
+      </thead>    
+      <tbody>
+        {% for cliente in clientes %}
+        <tr>
+          <td> {{cliente.nome}}</td>
+          <td> {{cliente.telefone}}</td>
+          <td> {{cliente.email}}</td>
+          <td> <a href="/cliente_alterar/{{cliente.id}}">Alterar Dados</a></td>
+          <td> <a href="/cliente_visualizar/{{cliente.id}}">Detalhes</a></td>
+          <td> <a href="/cliente_menu/{{cliente.id}}/delete">Deletar</a></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+
+    </table>
+
+    
+  </body>
+</html>
