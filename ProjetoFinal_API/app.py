@@ -1,15 +1,32 @@
 
 #from crypt import methods
 from os import abort
-from flask import Flask, flash, redirect, render_template, request, url_for, render_template
+from flask import Flask, flash, redirect, render_template, request, url_for, render_template, Blueprint
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
+from werkzeug.security import generate_password_hash, check_password_hash
+from flask_login import LoginManager, UserMixin, login_user, login_required, current_user, logout_user
+
+# main = Blueprint('main', __name__)
+# auth = Blueprint('auth', __name__)
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://postgres:root@localhost:5432/imobiliaria"
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 app.config['SECRET_KEY'] = "random string"
+# app.register_blueprint(auth)
+# app.register_blueprint(main)
+
+login_manager = LoginManager()
+login_manager.login_view = 'login'
+login_manager.init_app(app)
+
+class Usuario(UserMixin, db.Model):
+    id = db.Column(db.Integer, primary_key=True) 
+    email = db.Column(db.String(100), unique=True)
+    senha = db.Column(db.String(100))
+    nome = db.Column(db.String(1000))
 
 class Cliente(db.Model):
   __tablename__ = 'clientes'
@@ -108,7 +125,6 @@ class Cliente(db.Model):
       db.session.delete(cliente)
       db.session.commit()
       return {"Mensagem": f"Cliente {cliente.nome} deletado com sucesso!"}
-
  
 
 class Corretor(db.Model):
@@ -303,7 +319,8 @@ class Imovel(db.Model):
   cep = db.Column(db.String())
   tipo_imovel = db.Column(db.String())
   descricao_imovel = db.Column(db.String())
-  id_proprietario = db.Column(db.Integer, db.ForeignKey('proprietarios.id'), nullable=False) #Preencher corretamente
+  id_proprietario = db.Column(db.Integer, db.ForeignKey('proprietarios.id'), nullable=
+  ) #Preencher corretamente
   contratos = db.relationship('Contrato', backref='imovel', lazy=True)
  
 
@@ -488,34 +505,73 @@ class Contrato(db.Model):
       db.session.commit()
       return {"Mensagem": f"Contrato {contrato.id} deletado com sucesso!"}
 
+@login_manager.user_loader
+def load_user(usuario_id):
+  return Usuario.query.get(int(usuario_id))
 
-@app.route('/')
-def open_login():
-  return render_template('login.html')
-
-@app.route('/login', methods=['POST', 'GET'])
+#Rotas de Login
+@app.route('/login')
 def login():
-  if request.method=='POST':
-    user = request.form['nm']
-    password = request.form['password']
-    return redirect(url_for('Sucesso', name = user, password = password))
-  else:
-    user = request.args.get('nm')
-    password = request.form['password']
-    return redirect(url_for('Sucesso', name = user, password = password))
+    return render_template('login.html')
 
+@app.route('/login', methods=['POST'])
+def login_post():
+    email = request.form.get('email')
+    senha = request.form.get('senha')
+    lembrar = True if request.form.get('lembrar') else False
+
+    usuario = Usuario.query.filter_by(email=email).first()
+    print(email)
+    if not usuario or not check_password_hash(usuario.senha, senha):
+        flash('Senha ou email incorretos!')
+        return redirect(url_for('login'))
+    login_user(usuario, remember=lembrar) 
+    return redirect(url_for('menuNavegacao'))
+
+@app.route('/signup')
+def signup():
+    return render_template('signup.html')
+
+@app.route('/signup', methods=['POST'])
+def signup_post():
+    email = request.form.get('email')
+    nome = request.form.get('nome')
+    senha = request.form.get('senha')
+
+    usuario = Usuario.query.filter_by(email=email).first() 
+
+    if usuario:
+        flash('Email já cadastrado') 
+        return redirect(url_for('signup'))
+    novo_usuario = Usuario(email=email, nome=nome, senha=generate_password_hash(senha, method='sha256'))
+
+    
+    db.session.add(novo_usuario)
+    db.session.commit()
+
+    return redirect(url_for('login'))
+
+
+@app.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    return redirect(url_for('login'))
 
 @app.route('/menuNavegacao', methods=['POST', 'GET'])
+@login_required
 def menuNavegacao():
   return render_template('menuNavegacao.html')
 
 
 ##CONTRATO
 @app.route('/contrato_menu', methods=['POST', 'GET'])
+@login_required
 def contrato_menu():
   return render_template('contrato/contrato_menu.html', contratos = Contrato.query.all())
 
 @app.route('/contrato_cadastro', methods = ['GET', 'POST'])
+@login_required
 def contrato_cadastro():
   if request.method == 'POST':
     if not request.form['inicio_contrato'] or not request.form['termino_contrato'] or not request.form['valor'] or not request.form['id_cliente'] or not request.form['id_corretor'] or not request.form['id_imovel']:
@@ -544,6 +600,7 @@ def contrato_cadastro():
   )
 
 @app.route('/contrato_alterar/<contrato_id>', methods=['GET', 'POST'])
+@login_required
 def contrato_alterar(contrato_id):
   contrato = Contrato.query.get_or_404(contrato_id)
   if request.method == 'POST':    
@@ -570,12 +627,14 @@ def contrato_alterar(contrato_id):
   )
 
 @app.route('/contrato_visualizar/<contrato_id>', methods=['GET'])
+@login_required
 def contrato_visualizar(contrato_id):
   contrato = Contrato.query.get_or_404(contrato_id)          
   return render_template('contrato/contrato_visualizar.html', contrato = contrato)
 
 
 @app.route('/contrato_menu/<contrato_id>/delete', methods=['GET','POST'])
+@login_required
 def contrato_delete(contrato_id):
   contrato = Contrato.query.get_or_404(contrato_id)
   if request.method == 'POST':
@@ -588,10 +647,12 @@ def contrato_delete(contrato_id):
 
 ##CLIENTE
 @app.route('/cliente_menu', methods=['POST', 'GET'])
+@login_required
 def cliente_menu():
   return render_template('cliente/cliente_menu.html', clientes = Cliente.query.all())
 
 @app.route('/cliente_cadastro', methods = ['GET', 'POST'])
+@login_required
 def cliente_cadastro():
   if request.method == 'POST':
     if not request.form['nome'] or not request.form['cpf_cnpj'] or not request.form['tipo_pessoa'] or not request.form['endereco'] or not request.form['cidade'] or not request.form['estado'] or not request.form['cep']or not request.form['telefone'] or not request.form['email']:
@@ -605,6 +666,7 @@ def cliente_cadastro():
   return render_template('cliente/cliente_cadastro.html')
 
 @app.route('/cliente_alterar/<cliente_id>', methods=['GET', 'POST'])
+@login_required
 def cliente_alterar(cliente_id):
   cliente = Cliente.query.get_or_404(cliente_id)
   if request.method == 'POST':    
@@ -624,12 +686,15 @@ def cliente_alterar(cliente_id):
   return render_template('cliente/cliente_alterar.html', cliente = cliente)
 
 @app.route('/cliente_visualizar/<cliente_id>', methods=['GET'])
+@login_required
 def cliente_visualizar(cliente_id):
   cliente = Cliente.query.get_or_404(cliente_id)          
   return render_template('cliente/cliente_visualizar.html', cliente = cliente)
 
 
+
 @app.route('/cliente_menu/<cliente_id>/delete', methods=['GET','POST'])
+@login_required
 def cliente_delete(cliente_id):
   cliente = Cliente.query.get_or_404(cliente_id)
   if request.method == 'POST':
@@ -647,10 +712,12 @@ def cliente_delete(cliente_id):
 
 ## IMOVEL
 @app.route('/imovel_menu', methods=['POST', 'GET'])
+@login_required
 def imovel_menu():
   return render_template('imovel/imovel_menu.html', imoveis = Imovel.query.all())
 
 @app.route('/imovel_cadastro', methods = ['GET', 'POST'])
+@login_required
 def imovel_cadastro():
   if request.method == 'POST':
     if not request.form['endereco'] or not request.form['cidade'] or not request.form['estado'] or not request.form['cep'] or not request.form['id_proprietario'] or not request.form['tipo_imovel'] or not request.form['descricao_imovel']:
@@ -673,6 +740,7 @@ def imovel_cadastro():
   return render_template('imovel/imovel_cadastro.html', proprietarios = proprietarios)
 
 @app.route('/imovel_alterar/<imovel_id>', methods=['GET', 'POST'])
+@login_required
 def imovel_alterar(imovel_id):
   imovel = Imovel.query.get_or_404(imovel_id)
   if request.method == 'POST':    
@@ -693,12 +761,14 @@ def imovel_alterar(imovel_id):
    proprietarios = proprietarios)
 
 @app.route('/imovel_visualizar/<imovel_id>', methods=['GET'])
+@login_required
 def imovel_visualizar(imovel_id):
   imovel = Imovel.query.get_or_404(imovel_id)          
   return render_template('imovel/imovel_visualizar.html', imovel = imovel)
 
 
 @app.route('/imovel_menu/<imovel_id>/delete', methods=['GET','POST'])
+@login_required
 def imovel_delete(imovel_id):
   imovel = Imovel.query.get_or_404(imovel_id)
   if request.method == 'POST':
@@ -713,10 +783,12 @@ def imovel_delete(imovel_id):
 
 ##PROPRIETARIO
 @app.route('/proprietario_menu', methods=['POST', 'GET'])
+@login_required
 def proprietario_menu():
   return render_template('proprietario/proprietario_menu.html', proprietarios = Proprietario.query.all())
 
 @app.route('/proprietario_cadastro', methods = ['GET', 'POST'])
+@login_required
 def proprietario_cadastro():
   if request.method == 'POST':
     if not request.form['nome'] or not request.form['cpf_cnpj'] or not request.form['tipo_pessoa'] or not request.form['endereco'] or not request.form['cidade'] or not request.form['estado'] or not request.form['cep']or not request.form['telefone'] or not request.form['email']:
@@ -730,6 +802,7 @@ def proprietario_cadastro():
   return render_template('proprietario/proprietario_cadastro.html')
 
 @app.route('/proprietario_alterar/<proprietario_id>', methods=['GET', 'POST'])
+@login_required
 def proprietario_alterar(proprietario_id):
   proprietario = Proprietario.query.get_or_404(proprietario_id)
   if request.method == 'POST':    
@@ -749,12 +822,14 @@ def proprietario_alterar(proprietario_id):
   return render_template('proprietario/proprietario_alterar.html', proprietario = proprietario)
 
 @app.route('/proprietario_visualizar/<proprietario_id>', methods=['GET'])
+@login_required
 def proprietario_visualizar(proprietario_id):
   proprietario = Proprietario.query.get_or_404(proprietario_id)          
   return render_template('proprietario/proprietario_visualizar.html', proprietario = proprietario)
 
 
 @app.route('/proprietario_menu/<proprietario_id>/delete', methods=['GET','POST'])
+@login_required
 def proprietario_delete(proprietario_id):
   proprietario = Proprietario.query.get_or_404(proprietario_id)
   if request.method == 'POST':
@@ -771,11 +846,13 @@ def proprietario_delete(proprietario_id):
 
 #CORRETOR
 @app.route('/corretor_menu', methods=['POST', 'GET'])
+@login_required
 def corretor_menu():
   corretores = Corretor.query.order_by("id").all()
   return render_template('corretor/corretor_menu.html', corretores = corretores)
 
 @app.route('/corretor_cadastro', methods = ['GET', 'POST'])
+@login_required
 def corretor_cadastro():
   if request.method == 'POST':
     if not request.form['nome'] or not request.form['cpf_cnpj'] or not request.form['tipo_pessoa'] or not request.form['telefone'] or not request.form['email']:
@@ -789,6 +866,7 @@ def corretor_cadastro():
   return render_template('corretor/corretor_cadastro.html')
 
 @app.route('/corretor_alterar/<corretor_id>', methods=['GET', 'POST'])
+@login_required
 def corretor_alterar(corretor_id):
   corretor = Corretor.query.get_or_404(corretor_id)
   if request.method == 'POST':    
@@ -804,17 +882,20 @@ def corretor_alterar(corretor_id):
   return render_template('corretor/corretor_alterar.html', corretor = corretor)
 
 @app.route('/corretor_visualizar/<corretor_id>', methods=['GET'])
+@login_required
 def corretor_visualizar(corretor_id):
   corretor = Corretor.query.get_or_404(corretor_id)          
   return render_template('corretor/corretor_visualizar.html', corretor = corretor)  
 
-@app.route('/corretor_menu/<corretor_id>/delete', methods=['GET','POST'])
+@app.route('/corretor_menu/<corretor_id>/delete', methods=['POST'])
+@login_required
 def corretor_delete(corretor_id):
   corretor = Corretor.query.get_or_404(corretor_id)
   if request.method == 'POST':
     if corretor:
       db.session.delete(corretor)
       db.session.commit()
+      flash("Registro deletado com sucesso!")
       return redirect('/corretor_menu')
     abort(404)
   return render_template('delete.html', link_cancelar='corretor_menu')

@@ -1,13 +1,65 @@
-<html>
-  <body>    
-    <a href="/menuNavegacao">Retornar</a>
-    <a href="/corretor_menu">Lista de Corretores</a>
-    <h3>Dados do Corretor</a></h3>
-      <p>NOME:{{corretor.nome}}</p>
-      <p>CPF/CNJP: {{corretor.cpf_cnpj}}</p>
-      <p>PESSOA FISICA/JURIDICA: {{corretor.tipo_pessoa}}</p>
-      <p>TELEFONE: {{corretor.telefone}}</p>
-      <p>EMAIL: {{corretor.email}}</p> 
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/static/form1.css">
+  <title>Dados Corretores</title>
+</head>
+<body>  
   
-  </body>
+  <div class="container">
+    <div class="form-image">
+      <img src="/static/images/cadastro.svg">
+    </div>
+    <div class="form">
+      <form action = "{{ request.path }}" method = "post">
+        <div class="form-header">          
+          <div class="'title">
+            <h1>Dados Corretor</h1>
+            
+          </div>
+          <div class="retorno">
+            <button><a href="/menuNavegacao">MENU</a></button>
+            <button><a href="/corretor_menu">Lista de Corretores</a></button>
+          </div>
+        </div>
+
+        <div class="input-group">
+          <div class="input-box">            
+            <label><strong>NOME COMPLETO</strong></label>
+            <p>{{corretor.nome}}</p><br>
+          </div>
+
+          <div class="input-box">
+            <label><strong>CPF/CNPJ</strong></label>
+            <p>{{corretor.cpf_cnpj}}</p>
+          </div>
+
+          <div class="person-inputs">
+            <div class="person-title">
+              <h6>PESSOA FISICA/JURIDICA</h6>
+                <p>{{corretor.tipo_pessoa}}</p> 
+            </div>
+          </div>
+        </div>
+
+
+        <div class="input-group">              
+          <div class="input-box">
+            <label><strong>TELEFONE</strong></label>
+            <p>{{corretor.telefone}}</p>
+          </div>
+
+          <div class="input-box">
+            <label><strong>EMAIL</strong></label>
+            <p>{{corretor.email}}</p>
+          </div>  
+        </div>      
+      </form>
+    </div>
+  </div>
+  
+</body>
 </html>

@@ -1,7 +1,17 @@
 <html>
+  <head>
+    <script type="text/javascript" src="static/form.js"></script>
+  </head>
   <body>
     <a href="/menuNavegacao">MENU</a>    
     <a href="/corretor_cadastro">Novo Corretor</a>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+        <div class="">
+            {{ messages[0] }}
+        </div>
+    {% endif %}
+    {% endwith %}
     <h3>Lista de Corretores</a></h3>
     <table>
       <thead>
@@ -20,13 +30,15 @@
           <td> {{corretor.email}}</td>
           <td> <a href="/corretor_alterar/{{corretor.id}}">Alterar Dados</a></td>
           <td> <a href="/corretor_visualizar/{{corretor.id}}">Detalhes</a></td>
-          <td> <a href="/corretor_menu/{{corretor.id}}/delete">Deletar</a></td>
+          <td>
+            <form class="delete-form" action="/corretor_menu/{{corretor.id}}/delete" method="post" style="margin-bottom: 0;">
+              <a href="javascript:;" onclick="alertaDeletar(event)">Deletar</a>
+            </form>
+          </td>
         </tr>
         {% endfor %}
       </tbody>
 
     </table>
-
-    
   </body>
 </html>

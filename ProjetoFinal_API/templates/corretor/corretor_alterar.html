@@ -1,17 +1,86 @@
-<html>
-  <body>    
-    <a href="/menuNavegacao">Retornar</a>
-    <a href="/corretor_menu">Lista de Corretores</a>
-    <h3>Alteração de Dados</a></h3>
-    <form action = "{{ request.path }}" method = "post">
-      <input type="text" name="nome" placeholder="Nome" value="{{corretor.nome}}"/><br>
-      <input type="text" name ="cpf_cnpj" placeholder ="CPF/CNPJ" value="{{corretor.cpf_cnpj}}"/><br>
-      <input type="text" name ="tipo_pessoa" placeholder ="Fisica ou Juridica"value="{{corretor.tipo_pessoa}}"/><br>
-      <input type="text" name ="telefone" placeholder ="(DDD)Telefone" value="{{corretor.telefone}}"/><br>
-      <input type="text" name="email" placeholder="Email" value="{{corretor.email}}"/><br>
-      <input type="submit" value="Alterar" />
-   </form>
-   
-    
-  </body>
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/static/form1.css">
+  <title>Alteração de Dados</title>
+</head>
+<body>  
+  
+  <div class="container">
+    <div class="form-image">
+      <img src="/static/images/cadastro.svg">
+    </div>
+    <div class="form">
+      <form action = "{{ request.path }}" method = "post">
+        <div class="form-header">          
+          <div class="'title">
+            <h1>Alterar Corretor</h1>
+            
+          </div>
+          <div class="retorno">
+            <button><a href="/menuNavegacao">Retornar</a></button>
+            <button><a href="/corretor_menu">Lista de Corretores</a></button>
+          </div>
+        </div>
+        
+        <div class="input-box">
+          <h4>Preencha os campos abaixo:</h4>
+        </div>
+
+        <div class="input-group">
+          <div class="input-box">            
+            <label><strong>NOME COMPLETO</strong></label>
+            <input type="text" name="nome" value="{{corretor.nome}}" required/><br>
+          </div>
+
+          <div class="input-box">
+            <label><strong>CPF/CNPJ</strong></label>
+            <input type="text" name ="cpf_cnpj" value="{{corretor.cpf_cnpj}}" required/>
+          </div>
+
+          <div class="person-inputs">
+            <div class="person-title">
+              <h6>PESSOA FISICA/JURIDICA</h6> 
+            </div>
+            <div class="person-group">
+              <div class="person-input">
+                {% if corretor.tipo_pessoa == "Fisica" %}       
+                  <input type="radio" name ="tipo_pessoa" value="Fisica" checked required>
+                {% else %}
+                  <input type="radio" name ="tipo_pessoa" value="Fisica" required>
+                {% endif %}    
+                <label for="none">Fisica</label>
+              </div>
+              <div class="person-input">           
+                {% if corretor.tipo_pessoa == "Juridica" %}       
+                  <input type="radio" name ="tipo_pessoa" value="Juridica" checked required>
+                {% else %}
+                  <input type="radio" name ="tipo_pessoa" value="Juridica" required>
+                {% endif %}
+                <label for="none">Juridica</label>
+              </div>
+            </div> 
+          </div>
+
+          <div class="input-box">
+            <label><strong>TELEFONE</strong></label>
+            <input type="tel" name ="telefone" value="{{corretor.telefone}}" required/>
+          </div>
+
+          <div class="input-box">
+            <label><strong>EMAIL</strong></label>
+            <input type="email" name="email" value="{{corretor.email}}" required/>
+          </div>          
+        </div>
+        <div class="continue-button">
+          <button><a class="botao" type="submit" value="Cadastrar">Alterar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  
+</body>
 </html>

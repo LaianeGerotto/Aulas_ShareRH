@@ -1,9 +1,21 @@
 <html>
   <body>
-    <form action="http://localhost:5000/login" method="post">
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+        <div class="notification is-danger">
+            {{ messages[0] }}
+        </div>
+    {% endif %}
+    {% endwith %}
+    <form action="/login" method="post">
       <p>Login</p>
-      <p>Email:<input type="text" name="nm"></p>
-      <p>Senha:<input type="password" senha="password"></p>
+      <p>Email:<input type="text" name="email"></p>
+      <p>Senha:<input type="password" name="senha"></p>
+      <label class="checkbox">
+        <input name="lembrar" type="checkbox">
+        Lembrar
+      </label>
+      <p><a href="/signup">Cadastrar Usuário</a></p>
       <p><input type="submit" value="Enviar"></p>
     </form>
   </body>
