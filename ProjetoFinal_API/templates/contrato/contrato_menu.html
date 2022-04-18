@@ -22,9 +22,10 @@
           <td> {{contrato.inicio_contrato}}</td>
           <td> {{contrato.termino_contrato}}</td>
           <td> {{contrato.id_cliente}}</td>
-          <td> {{contrato.id_corretor}}</td>
-          <td> {{contrato.id_id_proprietario}}</td>
-          <td> {{contrato.id_imovel.descricao_imovel}}</td>
+          <td> {{contrato.id_proprietario}}</td>
+          <td> <a href="/contrato_alterar/{{contrato.id}}">Alterar Dados</a></td>
+          <td> <a href="/contrato_visualizar/{{contrato.id}}">Detalhes</a></td>
+          <td> <a href="/contrato_menu/{{contrato.id}}/delete">Deletar</a></td>
           
         </tr>
         {% endfor %}

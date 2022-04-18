@@ -543,6 +543,32 @@ def contrato_cadastro():
     corretores=corretores
   )
 
+@app.route('/contrato_alterar/<contrato_id>', methods=['GET', 'POST'])
+def contrato_alterar(contrato_id):
+  contrato = Contrato.query.get_or_404(contrato_id)
+  if request.method == 'POST':    
+      contrato.inicio_contrato = request.form['inicio_contrato']
+      contrato.termino_contrato = request.form['termino_contrato']
+      contrato.valor = request.form['valor']
+      contrato.id_cliente=request.form['id_cliente']
+      contrato.id_corretor=request.form['id_corretor']
+      contrato.id_imovel=request.form['id_imovel']
+      db.session.add(contrato)
+      db.session.commit()
+      flash('Atulização realizada!')
+      return redirect(url_for('contrato_menu'))
+  imoveis = Imovel.query.all()
+  clientes = Cliente.query.all()
+  corretores = Corretor.query.all()
+  
+  return render_template(
+    'contrato/contrato_alterar.html', 
+    imoveis=imoveis, 
+    clientes=clientes,
+    corretores=corretores,
+    contrato=contrato
+  )
+
 ##CLIENTE
 @app.route('/cliente_menu', methods=['POST', 'GET'])
 def cliente_menu():
@@ -560,8 +586,6 @@ def cliente_cadastro():
       flash('Cadastro realizado!')
       return redirect(url_for('cliente_menu'))
   return render_template('cliente/cliente_cadastro.html')
-
-
 
 ## IMOVEL
 @app.route('/imovel_menu', methods=['POST', 'GET'])
@@ -606,7 +630,9 @@ def imovel_alterar(imovel_id):
       flash('Atulização realizada!')
       return redirect(url_for('imovel_menu'))
   proprietarios = Proprietario.query.all()    
-  return render_template('imovel/imovel_alterar.html', imovel = imovel, proprietarios = proprietarios)
+  return render_template('imovel/imovel_alterar.html',
+   imovel = imovel,
+   proprietarios = proprietarios)
 
 @app.route('/imovel_visualizar/<imovel_id>', methods=['GET'])
 def imovel_visualizar(imovel_id):
