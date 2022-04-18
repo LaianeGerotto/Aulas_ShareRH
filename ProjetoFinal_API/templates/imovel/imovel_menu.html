@@ -9,7 +9,6 @@
             <th>Código</th>
             <th>Tipo de Imóvel</th>
             <th>Proprietario</th>
-            <th>Descrição</th>
             <td></td>
          </tr>
       </thead>    
@@ -19,7 +18,6 @@
           <td> {{imovel.id}}</td>
           <td> {{imovel.tipo_imovel}}</td>
           <td> {{imovel.proprietario.nome}}</td>
-          <td> {{imovel.descricao}}</td>
           <td> <a href="/imovel_alterar/{{imovel.id}}">Alterar Dados</a></td>
           <td> <a href="/imovel_visualizar/{{imovel.id}}">Detalhes</a></td>
           <td> <a href="/imovel_menu/{{imovel.id}}/delete">Deletar</a></td>

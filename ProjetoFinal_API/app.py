@@ -109,7 +109,7 @@ class Cliente(db.Model):
       db.session.commit()
       return {"Mensagem": f"Cliente {cliente.nome} deletado com sucesso!"}
 
-  
+ 
 
 class Corretor(db.Model):
   __tablename__ = 'corretores'
@@ -317,7 +317,7 @@ class Imovel(db.Model):
     self.id_proprietario = id_proprietario
   
   def __repr__(self):
-    return f"<Campo Imóvel\n.....>"
+    return f"ID: {self.id} - Proprietário: {self.proprietario.nome}"
 
   @app.route('/imoveis', methods=['POST', 'GET'])
   def handle_imoveis():
@@ -515,6 +515,33 @@ def menuNavegacao():
 def contrato_menu():
   return render_template('contrato/contrato_menu.html', contratos = Contrato.query.all())
 
+@app.route('/contrato_cadastro', methods = ['GET', 'POST'])
+def contrato_cadastro():
+  if request.method == 'POST':
+    if not request.form['inicio_contrato'] or not request.form['termino_contrato'] or not request.form['valor'] or not request.form['id_cliente'] or not request.form['id_corretor'] or not request.form['id_imovel']:
+      flash('Por favor, insira todos os campos', 'error')
+    else:
+      contrato = Contrato(
+        inicio_contrato=request.form['inicio_contrato'],
+        termino_contrato=request.form['termino_contrato'],
+        valor=request.form['valor'],
+        id_cliente=request.form['id_cliente'],
+        id_corretor=request.form['id_corretor'],
+        id_imovel=request.form['id_imovel']
+      )
+      db.session.add(contrato)
+      db.session.commit()
+      flash('Cadastro realizado!')
+      return redirect(url_for('contrato_menu'))
+  imoveis = Imovel.query.all()
+  clientes = Cliente.query.all()
+  corretores = Corretor.query.all()
+  return render_template(
+    'contrato/contrato_cadastro.html', 
+    imoveis=imoveis, 
+    clientes=clientes,
+    corretores=corretores
+  )
 
 ##CLIENTE
 @app.route('/cliente_menu', methods=['POST', 'GET'])
@@ -544,10 +571,18 @@ def imovel_menu():
 @app.route('/imovel_cadastro', methods = ['GET', 'POST'])
 def imovel_cadastro():
   if request.method == 'POST':
-    if not request.form['endereco'] or not request.form['cidade'] or not request.form['estado'] or not request.form['cep'] or not request.form['proprietario'] or not request.form['tipo_de_imovel'] or not request.form['descricao_imovel']:
+    if not request.form['endereco'] or not request.form['cidade'] or not request.form['estado'] or not request.form['cep'] or not request.form['id_proprietario'] or not request.form['tipo_imovel'] or not request.form['descricao_imovel']:
       flash('Por favor, insira todos os campos', 'error')
     else:
-      imovel = Imovel(request.form['endereco'], request.form['cidade'],request.form['estado'], request.form['cep'], request.form['proprietario'], request.form['tipo_imovel'], request.form['descricao_imovel'])
+      imovel = Imovel(
+        endereco=request.form['endereco'],
+        cidade=request.form['cidade'],
+        estado=request.form['estado'],
+        cep=request.form['cep'],
+        id_proprietario=request.form['id_proprietario'],
+        tipo_imovel=request.form['tipo_imovel'],
+        descricao_imovel=request.form['descricao_imovel']
+      )
       db.session.add(imovel)
       db.session.commit()
       flash('Cadastro realizado!')
@@ -572,6 +607,23 @@ def imovel_alterar(imovel_id):
       return redirect(url_for('imovel_menu'))
   proprietarios = Proprietario.query.all()    
   return render_template('imovel/imovel_alterar.html', imovel = imovel, proprietarios = proprietarios)
+
+@app.route('/imovel_visualizar/<imovel_id>', methods=['GET'])
+def imovel_visualizar(imovel_id):
+  imovel = Imovel.query.get_or_404(imovel_id)          
+  return render_template('imovel/imovel_visualizar.html', imovel = imovel)
+
+
+@app.route('/imovel_menu/<imovel_id>/delete', methods=['GET','POST'])
+def imovel_delete(imovel_id):
+  imovel = Imovel.query.get_or_404(imovel_id)
+  if request.method == 'POST':
+    if imovel:
+      db.session.delete(imovel)
+      db.session.commit()
+      return redirect('/imovel_menu')
+    abort(404)
+  return render_template('delete.html', link_cancelar='imovel_menu')
 
 
 
@@ -630,11 +682,10 @@ def corretor_alterar(corretor_id):
 @app.route('/corretor_visualizar/<corretor_id>', methods=['GET'])
 def corretor_visualizar(corretor_id):
   corretor = Corretor.query.get_or_404(corretor_id)          
-  return render_template('corretor/corretor_visualizar.html', corretor = corretor)
-  
+  return render_template('corretor/corretor_visualizar.html', corretor = corretor)  
 
 @app.route('/corretor_menu/<corretor_id>/delete', methods=['GET','POST'])
-def delete(corretor_id):
+def corretor_delete(corretor_id):
   corretor = Corretor.query.get_or_404(corretor_id)
   if request.method == 'POST':
     if corretor:
