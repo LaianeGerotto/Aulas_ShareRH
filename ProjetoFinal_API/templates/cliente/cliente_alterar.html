@@ -17,7 +17,7 @@
       <form action = "{{ request.path }}" method = "post">
         <div class="form-header">          
           <div class="'title">
-            <h1>Novo Cliente</h1>
+            <h1>Alterar Cliente</h1>
             
           </div>
           <div class="retorno">
@@ -32,12 +32,12 @@
         <div class="input-group">
           <div class="input-box">            
             <label><strong>NOME COMPLETO</strong></label>
-            <input type="text" name="nome" required/><br>
+            <input type="text" name="nome" value="{{cliente.nome}}" required/><br>
           </div>
 
           <div class="input-box">
             <label><strong>CPF/CNPJ</strong></label>
-            <input type="text" name ="cpf_cnpj"required/>
+            <input type="text" name ="cpf_cnpj" value="{{cliente.cpf_cnpj}}" required/>
           </div>
 
           <div class="person-inputs">
@@ -45,45 +45,56 @@
               <h6>PESSOA FISICA/JURIDICA</h6> 
             </div>
             <div class="person-group">
-              <div class="person-input">       
-                <input type="radio" name ="tipo_pessoa" value="Fisica"required>
+              <div class="person-input">
+                {% if cliente.tipo_pessoa == "Fisica" %}       
+                  <input type="radio" name ="tipo_pessoa" value="Fisica" checked required>
+                {% else %}
+                  <input type="radio" name ="tipo_pessoa" value="Fisica" required>
+                {% endif %}    
                 <label for="none">Fisica</label>
               </div>
               <div class="person-input">           
-                <input type="radio" name ="tipo_pessoa" value="Juridica">
+                {% if cliente.tipo_pessoa == "Juridica" %}       
+                  <input type="radio" name ="tipo_pessoa" value="Juridica" checked required>
+                {% else %}
+                  <input type="radio" name ="tipo_pessoa" value="Juridica" required>
+                {% endif %}
                 <label for="none">Juridica</label>
               </div>
             </div> 
           </div>
-
+        </div>
+        <div class="input-group">
           <div class="input-box">            
             <label><strong>ENDEREÇO</strong></label>
-            <input type="text" name="endereco" required/><br>
-            <label><strong>CIDADE</strong></label>
-            <input type="text" name="cidade" required/><br>
-            <label><strong>ESTADO</strong></label>
-            <input type="text" name="estado" required/><br>
-            <label><strong>CEP</strong></label>
-            <input type="text" name="cep" required/><br>
+            <input type="text" name="endereco" value="{{cliente.endereco}}" required/>
           </div>
-
+          <div class="input-box">
+            <label><strong>CIDADE</strong></label>
+            <input type="text" name="cidade" value="{{cliente.cidade}}"  required/>
+          </div>
+          <div class="input-box">
+            <label><strong>ESTADO</strong></label>
+            <input type="text" name="estado" value="{{cliente.estado}}" required/>
+          </div>
+          <div class="input-box">
+            <label><strong>CEP</strong></label>
+            <input type="text" name="cep" value="{{cliente.cep}}" required/>
+          </div>
+        </div>
+        <div class="input-group">
           <div class="input-box">
             <label><strong>TELEFONE</strong></label>
-            <input type="tel" name ="telefone" placeholder ="(xx)xxxx-xxxx" required/>
+            <input type="tel" name ="telefone" value="{{cliente.telefone}}" required/>
           </div>
 
           <div class="input-box">
             <label><strong>EMAIL</strong></label>
-            <input type="email" name="email" placeholder ="email@email" required/>
+            <input type="email" name="email" value="{{cliente.email}}" required/>
           </div>
-          
-          <div class="input-box">
-            <label><strong>Inserir contratos??</strong></label>
-            <input type="text" name="" />
-          </div> 
-        </div>
+        </div>            
         <div class="continue-button">
-          <button><a class="botao" type="submit" value="Cadastrar">Cadastrar</button>
+          <button><a class="botao" type="submit" value="Cadastrar">Alterar</button>
         </div>
       </form>
     </div>

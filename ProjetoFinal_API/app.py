@@ -569,6 +569,23 @@ def contrato_alterar(contrato_id):
     contrato=contrato
   )
 
+@app.route('/contrato_visualizar/<contrato_id>', methods=['GET'])
+def contrato_visualizar(contrato_id):
+  contrato = Contrato.query.get_or_404(contrato_id)          
+  return render_template('contrato/contrato_visualizar.html', contrato = contrato)
+
+
+@app.route('/contrato_menu/<contrato_id>/delete', methods=['GET','POST'])
+def contrato_delete(contrato_id):
+  contrato = Contrato.query.get_or_404(contrato_id)
+  if request.method == 'POST':
+    if contrato:
+      db.session.delete(contrato)
+      db.session.commit()
+      return redirect('/contrato_menu')
+    abort(404)
+  return render_template('delete.html', link_cancelar='contrato_menu')
+
 ##CLIENTE
 @app.route('/cliente_menu', methods=['POST', 'GET'])
 def cliente_menu():
@@ -586,6 +603,47 @@ def cliente_cadastro():
       flash('Cadastro realizado!')
       return redirect(url_for('cliente_menu'))
   return render_template('cliente/cliente_cadastro.html')
+
+@app.route('/cliente_alterar/<cliente_id>', methods=['GET', 'POST'])
+def cliente_alterar(cliente_id):
+  cliente = Cliente.query.get_or_404(cliente_id)
+  if request.method == 'POST':    
+      cliente.nome = request.form['nome']
+      cliente.cpf_cnpj = request.form['cpf_cnpj']
+      cliente.tipo_pessoa = request.form['tipo_pessoa']
+      cliente.endereco = request.form['endereco']
+      cliente.cidade = request.form['cidade']
+      cliente.estado = request.form['estado']
+      cliente.cep = request.form['cep']
+      cliente.telefone=request.form['telefone']
+      cliente.email=request.form['email']
+      db.session.add(cliente)
+      db.session.commit()
+      flash('Atulização realizada!')
+      return redirect(url_for('cliente_menu'))
+  return render_template('cliente/cliente_alterar.html', cliente = cliente)
+
+@app.route('/cliente_visualizar/<cliente_id>', methods=['GET'])
+def cliente_visualizar(cliente_id):
+  cliente = Cliente.query.get_or_404(cliente_id)          
+  return render_template('cliente/cliente_visualizar.html', cliente = cliente)
+
+
+@app.route('/cliente_menu/<cliente_id>/delete', methods=['GET','POST'])
+def cliente_delete(cliente_id):
+  cliente = Cliente.query.get_or_404(cliente_id)
+  if request.method == 'POST':
+    if cliente:
+      db.session.delete(cliente)
+      db.session.commit()
+      return redirect('/cliente_menu')
+    abort(404)
+  return render_template('delete.html', link_cancelar='cliente_menu')
+
+
+
+
+
 
 ## IMOVEL
 @app.route('/imovel_menu', methods=['POST', 'GET'])
@@ -670,6 +728,46 @@ def proprietario_cadastro():
       flash('Cadastro realizado!')
       return redirect(url_for('proprietario_menu'))
   return render_template('proprietario/proprietario_cadastro.html')
+
+@app.route('/proprietario_alterar/<proprietario_id>', methods=['GET', 'POST'])
+def proprietario_alterar(proprietario_id):
+  proprietario = Proprietario.query.get_or_404(proprietario_id)
+  if request.method == 'POST':    
+      proprietario.nome = request.form['nome']
+      proprietario.cpf_cnpj = request.form['cpf_cnpj']
+      proprietario.tipo_pessoa = request.form['tipo_pessoa']
+      proprietario.endereco = request.form['endereco']
+      proprietario.cidade = request.form['cidade']
+      proprietario.estado = request.form['estado']
+      proprietario.cep = request.form['cep']
+      proprietario.telefone=request.form['telefone']
+      proprietario.email=request.form['email']
+      db.session.add(proprietario)
+      db.session.commit()
+      flash('Atulização realizada!')
+      return redirect(url_for('proprietario_menu'))
+  return render_template('proprietario/proprietario_alterar.html', proprietario = proprietario)
+
+@app.route('/proprietario_visualizar/<proprietario_id>', methods=['GET'])
+def proprietario_visualizar(proprietario_id):
+  proprietario = Proprietario.query.get_or_404(proprietario_id)          
+  return render_template('proprietario/proprietario_visualizar.html', proprietario = proprietario)
+
+
+@app.route('/proprietario_menu/<proprietario_id>/delete', methods=['GET','POST'])
+def proprietario_delete(proprietario_id):
+  proprietario = Proprietario.query.get_or_404(proprietario_id)
+  if request.method == 'POST':
+    if proprietario:
+      db.session.delete(proprietario)
+      db.session.commit()
+      return redirect('/proprietario_menu')
+    abort(404)
+  return render_template('delete.html', link_cancelar='proprietario_menu')
+
+
+
+
 
 #CORRETOR
 @app.route('/corretor_menu', methods=['POST', 'GET'])
