@@ -1,22 +1,54 @@
-<html>
-  <body>
-    {% with messages = get_flashed_messages() %}
-    {% if messages %}
-        <div class="notification is-danger">
-            {{ messages[0] }}
-        </div>
-    {% endif %}
-    {% endwith %}
-    <form action="/login" method="post">
-      <p>Login</p>
-      <p>Email:<input type="text" name="email"></p>
-      <p>Senha:<input type="password" name="senha"></p>
-      <label class="checkbox">
-        <input name="lembrar" type="checkbox">
-        Lembrar
-      </label>
-      <p><a href="/signup">Cadastrar Usuário</a></p>
-      <p><input type="submit" value="Enviar"></p>
-    </form>
-  </body>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/static/form1.css">
+  <title>Login</title>
+</head>
+<body>
+  <div class="container">
+    <div class="form-image">
+      <img src="/static/images/buscando dados.svg">
+    </div>
+    <div class="form">
+      <form action = "{{ request.path }}" method = "post">
+        <div class="form-header">          
+          <div class="'title">
+            <h1>LOGIN</h1>  
+          </div>          
+        </div>        
+        
+          {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            <div class="notification is-danger">
+              {{ messages[0] }}
+            </div>
+          {% endif %}
+          {% endwith %}
+          <form action="/login" method="post">
+            <div class="input-group">
+              <p>Email:<input type="text" name="email"></p>
+            </div>
+            <div class="input-group">
+              <p>Senha:<input type="password" name="senha"></p>
+            </div>
+            <div class="input-group">
+              <label class="checkbox">
+                <input name="lembrar" type="checkbox">
+                Lembrar
+              </label>
+            </div>
+            <div class="retorno">
+              <button><a href="/signup">Cadastrar Usuário</a></button>
+              <button><a type="submit" value="Enviar">Enviar</a></button>
+            </div>
+          </form>
+        </div>    
+      </form>
+    </div>
+  </div>
+</body>
 </html>

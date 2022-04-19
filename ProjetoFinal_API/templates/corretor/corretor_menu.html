@@ -28,11 +28,11 @@
           <td> {{corretor.nome}}</td>
           <td> {{corretor.telefone}}</td>
           <td> {{corretor.email}}</td>
-          <td> <a href="/corretor_alterar/{{corretor.id}}">Alterar Dados</a></td>
-          <td> <a href="/corretor_visualizar/{{corretor.id}}">Detalhes</a></td>
+          <td> <a href="/corretor_alterar/{{corretor.id}}">Editar</a></td>
+          <td> <a href="/corretor_visualizar/{{corretor.id}}">Mais informações</a></td>
           <td>
             <form class="delete-form" action="/corretor_menu/{{corretor.id}}/delete" method="post" style="margin-bottom: 0;">
-              <a href="javascript:;" onclick="alertaDeletar(event)">Deletar</a>
+              <a href="javascript:;" onclick="alertaDeletar(event)">Excluir</a>
             </form>
           </td>
         </tr>

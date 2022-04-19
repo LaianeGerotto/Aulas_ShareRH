@@ -1,10 +1,47 @@
-<html>
-  <body>
-    <a href="/corretor_menu">Corretor</a>
-    <a href="/contrato_menu">Contratos</a>
-    <a href="/cliente_menu">Cliente/Inquilino</a>
-    <a href="/imovel_menu">Imóveis</a>
-    <a href="/proprietario_menu">Proprietário</a>
-    <a href="/logout">Sair</a>
-  </body>
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MENU</title>
+  <link rel="stylesheet" href="/static/form1.css">
+</head>
+<body>
+  <div class="container">
+    <div class="form-image">
+      <img src="/static/images/buscando dados.svg">
+    </div>
+    <div class="form">
+      <form action = "{{ request.path }}" method = "post">
+        <div class="form-header">          
+          <div class="'title">
+            <h1>MENU</h1>  
+          </div>          
+        </div>        
+        <div class="input-group">
+          <div class="retorno">
+            <button><a href="/corretor_menu">Corretor</a></button>
+          </div>
+
+          <div class="retorno">
+            <button><a href="/contrato_menu">Contratos</a></button>
+          </div>
+          <div class="retorno">
+            <button><a href="/cliente_menu">Cliente/Inquilino</a></button>
+          </div>
+          <div class="retorno">
+            <button><a href="/imovel_menu">Imóveis</a></button>
+          </div>
+          <div class="retorno">
+            <button><a href="/proprietario_menu">Proprietário</a></button>
+          </div>
+          <div class="retorno">
+            <button><a href="/logout">Sair</a></button>
+          </div>
+        </div>    
+      </form>
+    </div>
+  </div>
+</body>
 </html>

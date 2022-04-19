@@ -27,16 +27,15 @@
           <h4>Preencha os campos abaixo:</h4>
         </div>
         <div class="input-group">
-          <div class="input-group">
-            <div class="input-box">            
+          <div class="input-box">            
               <label><strong>INÍCIO DO CONTRATO</strong></label>
               <input type="date" name="inicio_contrato" value="{{contrato.inicio_contrato}}" required/><br>
-            </div>
-            <div class="input-box"> 
+          </div>
+          <div class="input-box"> 
               <label><strong>TÉRMINO DO CONTRATO</strong></label>
               <input type="date" name="termino_contrato" value="{{contrato.termino_contrato}}" required/><br>            
-            </div>      
-          </div>
+          </div>      
+        </div>
   
         <div class="input-group">
           <div class="input-box">            
@@ -72,7 +71,7 @@
             </select>
           </div>
           <div class="input-box">
-            <label><strong>IMÓVEL</strong></label>
+            <label><strong>IMÓVEL/PROPRIETÁRIO</strong></label>
             <select name ="id_imovel" value="{{contrato.id_imovel}}" required> 
               {% for imovel in imoveis %}
                 {% if imovel.id == contrato.imovel_id %}
@@ -83,10 +82,11 @@
               {% endfor %}              
             </select>
           </div>           
-        
-          <div class="continue-button">
+        </div>
+        <div class="continue-button">
             <button><a class="botao" type="submit" value="Cadastrar">Alterar</a></button>
-          </div>
+        </div>
+        
       </form>
     </div>
   </div>

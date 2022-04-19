@@ -1,35 +1,66 @@
-<html>
-  <body>    
-    <a href="/menuNavegacao">MENU</a>
-    <a href="/contrato_cadastro">Novo Contrato</a>    
-    <h3>Lista de Contratos</a></h3>
-    <table>
-      <thead>
-         <tr>
-            <th>Código do Contrato</th>
-            <th>Início do Contrato</th>
-            <th>Término do Contrato</th>
-            <th>Cliente</th>
-            <th>Corretor</th>
-            <th>Proprietário</th>
-            <th>Descrição do Imóvel</th>
-         </tr>
-      </thead>    
-      <tbody>
-        {% for contrato in contratos %}
-        <tr>
-          <td> {{contrato.id_imovel}}</td>
-          <td> {{contrato.inicio_contrato}}</td>
-          <td> {{contrato.termino_contrato}}</td>
-          <td> {{contrato.id_cliente}}</td>
-          <td> {{contrato.id_proprietario}}</td>
-          <td> <a href="/contrato_alterar/{{contrato.id}}">Alterar Dados</a></td>
-          <td> <a href="/contrato_visualizar/{{contrato.id}}">Detalhes</a></td>
-          <td> <a href="/contrato_menu/{{contrato.id}}/delete">Deletar</a></td>
-          
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>    
-  </body>
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script type="text/javascript" src="static/form.js"></script>
+  <title>Dados do Contrato</title>
+  <link rel="stylesheet" href="/static/form1.css">
+</head>
+<body>
+  <div class="container">
+    <div class="form-image">
+      <img src="/static/images/contrato em mao.svg">
+    </div>
+    <div class="form">
+      <form action = "{{ request.path }}" method = "post">
+        <div class="form-header">          
+          <div class="'title">
+            <h1>Lista de Contratos</h1>  
+          </div>
+          <div class="retorno">
+            <button><a href="/menuNavegacao">MENU</a></button>
+            <button><a href="/contrato_cadastro">Novo Contrato</a></button>
+          </div>
+        </div>
+        <div class="input-group">
+          <div class="input-box">
+            <table>
+              <thead>
+                 <tr>
+                    <th>Código</th>
+                    <th>Início</th>
+                    <th>Término</th>
+                    <th>Cliente</th>
+                 </tr>
+               </tr>
+              </thead>    
+              <tbody>
+                {% for contrato in contratos %}
+                <tr>
+                  <td> {{contrato.id_imovel}}</td>
+                  <td> {{contrato.inicio_contrato}}</td>
+                  <td> {{contrato.termino_contrato}}</td>
+                  <td> {{contrato.cliente}}</td>
+                  <td> <a href="/contrato_alterar/{{contrato.id}}">Editar</a></td>
+                  <td> <a href="/contrato_visualizar/{{contrato.id}}">Mais informações</a></td>
+                  <td>
+                    <form class="delete-form" action="/contrato_menu/{{contrato.id}}/delete" method="post" style="margin-bottom: 0;">
+                      <a href="javascript:;" onclick="alertaDeletar(event)">Excluir</a>
+                    </form>
+                  </td>                
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>    
+
+          </div>
+        </div>           
+              
+      </form>
+    </div>
+  </div>
+
+</body>
 </html>

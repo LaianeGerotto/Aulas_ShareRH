@@ -7,6 +7,7 @@ from flask_migrate import Migrate
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import LoginManager, UserMixin, login_user, login_required, current_user, logout_user
 
+
 # main = Blueprint('main', __name__)
 # auth = Blueprint('auth', __name__)
 
@@ -55,7 +56,7 @@ class Cliente(db.Model):
     self.email = email
   
   def __repr__(self):
-    return f"<Campo Cliente\nNome: {self.nome}.....>"
+    return f"{self.nome}"
 
   @app.route('/clientes', methods=['POST', 'GET'])
   def handle_clientes():
@@ -319,8 +320,7 @@ class Imovel(db.Model):
   cep = db.Column(db.String())
   tipo_imovel = db.Column(db.String())
   descricao_imovel = db.Column(db.String())
-  id_proprietario = db.Column(db.Integer, db.ForeignKey('proprietarios.id'), nullable=
-  ) #Preencher corretamente
+  id_proprietario = db.Column(db.Integer, db.ForeignKey('proprietarios.id'), nullable=False) #Preencher corretamente
   contratos = db.relationship('Contrato', backref='imovel', lazy=True)
  
 
@@ -643,7 +643,7 @@ def contrato_delete(contrato_id):
       db.session.commit()
       return redirect('/contrato_menu')
     abort(404)
-  return render_template('delete.html', link_cancelar='contrato_menu')
+  return render_template('/static/form.js', link_cancelar='contrato_menu')
 
 ##CLIENTE
 @app.route('/cliente_menu', methods=['POST', 'GET'])
