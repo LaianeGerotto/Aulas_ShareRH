@@ -1,3 +1,4 @@
+<!--
 <html>
   <body>
     <a href="/menuNavegacao">MENU</a>    
@@ -24,9 +25,69 @@
         </tr>
         {% endfor %}
       </tbody>
-
-    </table>
-
-    
+    </table>    
   </body>
+</html>
+-->
+
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script type="text/javascript" src="static/form.js"></script>
+  <title>Imóveis</title>
+  <link rel="stylesheet" href="/static/form1.css">
+</head>
+<body>
+  <div class="container">
+    <div class="form-image">
+      <img src="/static/images/casa.svg">
+    </div>
+    <div class="form">
+      <form action = "{{ request.path }}" method = "post">
+        <div class="form-header">          
+          <div class="'title">
+            <h1>Lista de Proprietários</h1>  
+          </div>
+          <div class="retorno">
+            <button><a href="/menuNavegacao">MENU</a></button>
+            <button><a href="/proprietario_cadastro">NOVO PROPRIETÁRIO</a></button>
+          </div>
+        </div>
+        <div class="input-group">
+          <div class="input-box">
+            <table>
+              <thead>
+                 <tr>
+                  <th>Código</th>
+                  <th>Nome</th>
+                  <th>Email </th>
+                  <td></td>
+                 </tr>
+               </tr>
+              </thead>    
+              <tbody>
+                {% for proprietario in proprietarios %}
+                <tr>
+                  <td> {{proprietario.id}}</td>
+                  <td> {{proprietario.nome}}</td>
+                  <td> {{proprietario.email}}</td>
+                  <td> <a href="/proprietario_alterar/{{proprietario.id}}">Editar</a></td>
+                  <td> <a href="/proprietario_visualizar/{{proprietario.id}}">Mais informações</a></td>
+                  <td>
+                    <form class="delete-form" action="/proprietario_menu/{{proprietario.id}}/delete" method="post" style="margin-bottom: 0;">
+                      <a href="javascript:;" onclick="alertaDeletar(event)">Excluir</a>
+                    </form>
+                  </td>                
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>     
+      </form>
+    </div>
+  </div>
+</body>
 </html>

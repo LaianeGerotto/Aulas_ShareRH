@@ -48,7 +48,7 @@
         </div>
         <div class="input-group">
           <div class="input-box">
-            <label><strong>NOME DO PROPRIETARIO - BUSCAR ID</strong></label>
+            <label><strong>NOME DO PROPRIETARIO</strong></label>
             <select name ="id_proprietario" value="{{imovel.proprietario.nome}}" required> 
               {% for proprietario in proprietarios %}
                 {% if proprietario.id == imovel.id_proprietario %}

@@ -147,7 +147,7 @@ class Corretor(db.Model):
     self.email = email
   
   def __repr__(self):
-    return f"<Campo Corretor\nNome: {self.nome}.....>"
+    return f"Nome: {self.nome}"
 
   @app.route('/corretores', methods=['POST', 'GET'])
   def handle_corretores():
@@ -233,7 +233,7 @@ class Proprietario(db.Model):
     self.email = email
   
   def __repr__(self):
-    return f"<Campo Proprietario\nNome: {self.nome}.....>"
+    return f"Nome: {self.nome}"
 
   @app.route('/proprietarios', methods=['POST', 'GET'])
   def handle_proprietarios():
@@ -303,7 +303,7 @@ class Proprietario(db.Model):
       proprietario.email=data['email']
       db.session.add(proprietario)
       db.session.commit()
-      return {"Mensagem": f"Cliente {proprietario.nome} atualizado com sucesso!"}
+      return {"Mensagem": f"Proprietário {proprietario.nome} atualizado com sucesso!"}
     
     elif request.method == 'DELETE':
       db.session.delete(proprietario)
@@ -691,8 +691,6 @@ def cliente_visualizar(cliente_id):
   cliente = Cliente.query.get_or_404(cliente_id)          
   return render_template('cliente/cliente_visualizar.html', cliente = cliente)
 
-
-
 @app.route('/cliente_menu/<cliente_id>/delete', methods=['GET','POST'])
 @login_required
 def cliente_delete(cliente_id):
@@ -704,9 +702,6 @@ def cliente_delete(cliente_id):
       return redirect('/cliente_menu')
     abort(404)
   return render_template('delete.html', link_cancelar='cliente_menu')
-
-
-
 
 
 
@@ -766,7 +761,6 @@ def imovel_visualizar(imovel_id):
   imovel = Imovel.query.get_or_404(imovel_id)          
   return render_template('imovel/imovel_visualizar.html', imovel = imovel)
 
-
 @app.route('/imovel_menu/<imovel_id>/delete', methods=['GET','POST'])
 @login_required
 def imovel_delete(imovel_id):
@@ -778,7 +772,6 @@ def imovel_delete(imovel_id):
       return redirect('/imovel_menu')
     abort(404)
   return render_template('delete.html', link_cancelar='imovel_menu')
-
 
 
 ##PROPRIETARIO

@@ -1,3 +1,4 @@
+<!--
 <html>
   <body>
     <a href="/menuNavegacao">MENU</a>    
@@ -26,7 +27,68 @@
       </tbody>
 
     </table>
-
-    
   </body>
+</html>
+-->
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script type="text/javascript" src="static/form.js"></script>
+  <title>Dados Imóvel</title>
+  <link rel="stylesheet" href="/static/form1.css">
+</head>
+<body>
+  <div class="container">
+    <div class="form-image">
+      <img src="/static/images/procurando casa.svg">
+    </div>
+    <div class="form">
+      <form action = "{{ request.path }}" method = "post">
+        <div class="form-header">          
+          <div class="'title">
+            <h1>Lista de Imóveis</h1>  
+          </div>
+          <div class="retorno">
+            <button><a href="/menuNavegacao">MENU</a></button>
+            <button><a href="/imovel_cadastro">NOVO IMÓVEL</a></button>
+          </div>
+        </div>
+        <div class="input-group">
+          <div class="input-box">
+            <table>
+              <thead>
+                 <tr>
+                  <th>Cod.</th>
+                  <th>Tipo de Imóvel</th>
+                  <th>Proprietario</th>
+                  <td></td>
+                 </tr>
+               </tr>
+              </thead>    
+              <tbody>
+                {% for imovel in imoveis %}
+                <tr>
+                  <td> {{imovel.id}}</td>
+                  <td> {{imovel.tipo_imovel}}</td>
+                  <td> {{imovel.proprietario.nome}}</td>
+                  <td> <a href="/imovel_alterar/{{imovel.id}}">Editar</a></td>
+                  <td> <a href="/imovel_visualizar/{{imovel.id}}">Mais informações</a></td>
+                  <td>
+                    <form class="delete-form" action="/imovel_menu/{{imovel.id}}/delete" method="post" style="margin-bottom: 0;">
+                      <a href="javascript:;" onclick="alertaDeletar(event)">Excluir</a>
+                    </form>
+                  </td>                
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>     
+      </form>
+    </div>
+  </div>
+</body>
 </html>

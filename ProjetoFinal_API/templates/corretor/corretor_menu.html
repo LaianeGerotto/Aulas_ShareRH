@@ -1,44 +1,69 @@
-<html>
-  <head>
-    <script type="text/javascript" src="static/form.js"></script>
-  </head>
-  <body>
-    <a href="/menuNavegacao">MENU</a>    
-    <a href="/corretor_cadastro">Novo Corretor</a>
-    {% with messages = get_flashed_messages() %}
-    {% if messages %}
-        <div class="">
-            {{ messages[0] }}
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script type="text/javascript" src="static/form.js"></script>
+  <title>Dados Corretor</title>
+  <link rel="stylesheet" href="/static/form1.css">
+</head>
+<body>
+  <div class="container">
+    <div class="form-image">
+      <img src="/static/images/homem e note.svg">
+    </div>
+    <div class="form">
+      <form action = "{{ request.path }}" method = "post">
+        <div class="form-header">          
+          <div class="'title">
+            <h1>Lista de Corretores</h1>  
+          </div>
+          <div class="retorno">
+            <button><a href="/menuNavegacao">MENU</a></button>
+            <button><a href="/corretor_cadastro">NOVO CORRETOR</a></button>
+            {% with messages = get_flashed_messages() %}
+              {% if messages %}
+                  <div class="">
+                      {{ messages[0] }}
+                  </div>
+              {% endif %}
+            {% endwith %}
+          </div>
         </div>
-    {% endif %}
-    {% endwith %}
-    <h3>Lista de Corretores</a></h3>
-    <table>
-      <thead>
-         <tr>
-            <th>Nome</th>
-            <th>Telefone</th>
-            <th>Email </th>
-            <td></td>
-         </tr>
-      </thead>    
-      <tbody>
-        {% for corretor in corretores %}
-        <tr>
-          <td> {{corretor.nome}}</td>
-          <td> {{corretor.telefone}}</td>
-          <td> {{corretor.email}}</td>
-          <td> <a href="/corretor_alterar/{{corretor.id}}">Editar</a></td>
-          <td> <a href="/corretor_visualizar/{{corretor.id}}">Mais informações</a></td>
-          <td>
-            <form class="delete-form" action="/corretor_menu/{{corretor.id}}/delete" method="post" style="margin-bottom: 0;">
-              <a href="javascript:;" onclick="alertaDeletar(event)">Excluir</a>
-            </form>
-          </td>
-        </tr>
-        {% endfor %}
-      </tbody>
-
-    </table>
-  </body>
+        <div class="input-group">
+          <div class="input-box">
+            <table>
+              <thead>
+                <tr>
+                  <th>Cod.</th>
+                  <th>Nome</th>
+                  <th>Telefone</th>
+                  <th>Email</th>
+                </tr>
+              </thead>    
+              <tbody>
+                {% for corretor in corretores %}
+                <tr>
+                  <td> {{corretor.id}}</td>
+                  <td> {{corretor.nome}}</td>
+                  <td> {{corretor.telefone}}</td>
+                  <td> {{corretor.email}}</td>
+                  <td><a href="/corretor_alterar/{{corretor.id}}">Editar</a></td>
+                  <td><a href="/corretor_visualizar/{{corretor.id}}">Mais informações</a></td>
+                  <td>
+                    <form class="delete-form" action="/corretor_menu/{{corretor.id}}/delete" method="post" style="margin-bottom: 0;">
+                      <a href="javascript:;" onclick="alertaDeletar(event)">Excluir</a>
+                    </form>
+                  </td>                
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table> 
+          </div>
+        </div>               
+      </form>
+    </div>
+  </div>
+</body>
 </html>

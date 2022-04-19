@@ -1,32 +1,62 @@
-<html>
-  <body>
-    <a href="/menuNavegacao">MENU</a>    
-    <a href="/cliente_cadastro">Novo Cliente</a>
-    <h3>Lista de Clientes</a></h3>
-    <table>
-      <thead>
-         <tr>
-            <th>Nome</th>
-            <th>Telefone</th>
-            <th>Email </th>
-            <td></td>
-         </tr>
-      </thead>    
-      <tbody>
-        {% for cliente in clientes %}
-        <tr>
-          <td> {{cliente.nome}}</td>
-          <td> {{cliente.telefone}}</td>
-          <td> {{cliente.email}}</td>
-          <td> <a href="/cliente_alterar/{{cliente.id}}">Editar</a></td>
-          <td> <a href="/cliente_visualizar/{{cliente.id}}">Mais informações</a></td>
-          <td> <a href="/cliente_menu/{{cliente.id}}/delete">Excluir</a></td>
-        </tr>
-        {% endfor %}
-      </tbody>
-
-    </table>
-
-    
-  </body>
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script type="text/javascript" src="static/form.js"></script>
+  <title>Dados do Contrato</title>
+  <link rel="stylesheet" href="/static/form1.css">
+</head>
+<body>
+  <div class="container">
+    <div class="form-image">
+      <img src="/static/images/lista de cadastrados.svg">
+    </div>
+    <div class="form">
+      <form action = "{{ request.path }}" method = "post">
+        <div class="form-header">          
+          <div class="'title">
+            <h1>Lista de Clientes</h1>  
+          </div>
+          <div class="retorno">
+            <button><a href="/menuNavegacao">MENU</a></button>
+            <button><a href="/cliente_cadastro">NOVO CLIENTE</a></button>
+          </div>
+        </div>
+        <div class="input-group">
+          <div class="input-box">
+            <table>
+              <thead>
+                 <tr>
+                  <th>Código</th>
+                  <th>Nome</th>
+                  <th>Email </th>
+                  <td></td>
+                 </tr>
+               </tr>
+              </thead>    
+              <tbody>
+                {% for cliente in clientes %}
+                <tr>
+                  <td> {{cliente.id}}</td>
+                  <td> {{cliente.nome}}</td>
+                  <td> {{cliente.email}}</td>
+                  <td> <a href="/cliente_alterar/{{cliente.id}}">Editar</a></td>
+                  <td> <a href="/cliente_visualizar/{{cliente.id}}">Mais informações</a></td>
+                  <td>
+                    <form class="delete-form" action="/cliente_menu/{{cliente.id}}/delete" method="post" style="margin-bottom: 0;">
+                      <a href="javascript:;" onclick="alertaDeletar(event)">Excluir</a>
+                    </form>
+                  </td>                
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>     
+      </form>
+    </div>
+  </div>
+</body>
 </html>
