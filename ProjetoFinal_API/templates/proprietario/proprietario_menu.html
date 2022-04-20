@@ -46,14 +46,15 @@
     </div>
     <div class="form">
       <form action = "{{ request.path }}" method = "post">
+        <div class="retorno">
+          <button><a href="/menuNavegacao">MENU</a></button>
+          <button><a href="/proprietario_cadastro">NOVO PROPRIETÁRIO</a></button>
+        </div>
         <div class="form-header">          
           <div class="'title">
-            <h1>Lista de Proprietários</h1>  
+            <h1>Proprietários</h1>  
           </div>
-          <div class="retorno">
-            <button><a href="/menuNavegacao">MENU</a></button>
-            <button><a href="/proprietario_cadastro">NOVO PROPRIETÁRIO</a></button>
-          </div>
+          
         </div>
         <div class="input-group">
           <div class="input-box">
@@ -62,7 +63,7 @@
                  <tr>
                   <th>Código</th>
                   <th>Nome</th>
-                  <th>Email </th>
+                  <th>Email</th>
                   <td></td>
                  </tr>
                </tr>

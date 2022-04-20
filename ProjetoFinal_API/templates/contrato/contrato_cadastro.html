@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="pt-br">
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -15,15 +15,14 @@
     </div>
     <div class="form">
       <form action = "{{ request.path }}" method = "post">
+        <div class="retorno">
+          <button><a href="/menuNavegacao">MENU</a></button>
+          <button><a href="/contrato_menu">Lista de Contratos</a></button>
+        </div>
         <div class="form-header">          
           <div class="'title">
-            <h1>Novo Contrato</h1>
-            
-          </div>
-          <div class="retorno">
-            <button><a href="/menuNavegacao">MENU</a></button>
-            <button><a href="/contrato_menu">Lista de Contratos</a></button>
-          </div>
+            <h1>Novo Contrato</h1>            
+          </div>          
         </div>
         <div class="input-box">
           <h4>Preencha os campos abaixo:</h4>
@@ -32,7 +31,7 @@
         <div class="input-group">
           <div class="input-box">            
             <label><strong>INÍCIO DO CONTRATO</strong></label>
-            <input type="date" name="inicio_contrato" required/><br>
+            <input type="date" name="inicio_contrato" required format='%d%m%Y' /><br>
           </div>
           <div class="input-box"> 
             <label><strong>TÉRMINO DO CONTRATO</strong></label>

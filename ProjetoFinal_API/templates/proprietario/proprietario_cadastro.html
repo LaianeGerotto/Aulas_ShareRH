@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="pt-br">
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -15,16 +15,19 @@
     </div>
     <div class="form">
       <form action = "{{ request.path }}" method = "post">
+        <div class="retorno">
+          <button><a href="/menuNavegacao">MENU</a></button>
+          <button><a href="/proprietario_menu">Lista de Proprietários</a></button>
+        </div>
         <div class="form-header">          
           <div class="'title">
-            <h1>Novo Proprietario</h1>
+            <h1>Cadastro</h1>
             
           </div>
-          <div class="retorno">
-            <button><a href="/menuNavegacao">MENU</a></button>
-            <button><a href="/proprietario_menu">Lista de Proprietários</a></button>
-          </div>
+          
+          
         </div>
+        
         <div class="input-box">
           <h4>Preencha os campos abaixo:</h4>
         </div>
@@ -32,14 +35,14 @@
         <div class="input-group">
           <div class="input-box">            
             <label><strong>NOME COMPLETO</strong></label>
-            <input type="text" name="nome" required/><br>
+            <input type="text" name="nome" required/>
           </div>
 
           <div class="input-box">
             <label><strong>CPF/CNPJ</strong></label>
             <input type="text" name ="cpf_cnpj"required/>
           </div>
-
+      
           <div class="person-inputs">
             <div class="person-title">
               <h6>PESSOA FISICA/JURIDICA</h6> 
@@ -47,7 +50,7 @@
             <div class="person-group">
               <div class="person-input">       
                 <input type="radio" name ="tipo_pessoa" value="Fisica"required>
-                <label for="none">Fisica</label>
+                <label for="none">Fisica</label>   
               </div>
               <div class="person-input">           
                 <input type="radio" name ="tipo_pessoa" value="Juridica">
@@ -55,45 +58,43 @@
               </div>
             </div> 
           </div>
-        
-          <div class="input-group">
-            <div class="input-box">            
-              <label><strong>ENDEREÇO</strong></label>
-              <input type="text" name="endereco" required/>
-            </div>
-            <div class="input-box">   
-              <label><strong>CIDADE</strong></label>
-              <input type="text" name="cidade" required/>
-            </div>   
-            <div class="input-box">   
-              <label><strong>ESTADO</strong></label>
-              <input type="text" name="estado" required/>
-            </div>
-            <div class="input-box">   
-              <label><strong>CEP</strong></label>
-              <input type="text" name="cep" required/><br>
-            </div>
+          <div class="input-box">            
+            <label><strong>ENDEREÇO</strong></label>
+            <input type="text" name="endereco" required/>
           </div>
-            
-            <div class="input-box">
-              <label><strong>TELEFONE</strong></label>
-              <input type="tel" name ="telefone" placeholder ="(xx)xxxx-xxxx" required/>
-            </div>
-
-            <div class="input-box">
-              <label><strong>EMAIL</strong></label>
-              <input type="email" name="email" placeholder ="email@email" required/>
-            </div> 
-
-            <div class="input-box">
-              <label><strong>Exibir IMOVEIS</strong></label>
-              <input type="text" name=""  required/>
-            </div>
-
-          <div class="continue-button">
-            <button><a class="botao" type="submit" value="Cadastrar">Cadastrar</button>
+          <div class="input-box">   
+            <label><strong>CIDADE</strong></label>
+            <input type="text" name="cidade" required/>
+          </div>   
+          <div class="input-box">   
+            <label><strong>ESTADO</strong></label>
+            <input type="text" name="estado" required/>
           </div>
-        </div>
+          <div class="input-box">   
+            <label><strong>CEP</strong></label>
+            <input type="text" name="cep" required/><br>
+          </div>
+          
+          
+          <div class="input-box">
+            <label><strong>TELEFONE</strong></label>
+            <input type="tel" name ="telefone" placeholder ="(xx)xxxx-xxxx" required/>
+          </div>
+
+          <div class="input-box">
+            <label><strong>EMAIL</strong></label>
+            <input type="email" name="email" placeholder ="email@email" required/>
+          </div> 
+
+          <div class="input-box">
+            <label><strong>Exibir IMOVEIS</strong></label>
+            <input type="text" name=""  required/>
+          </div>
+      </div>
+
+        <div class="continue-button">
+          <button><a class="botao" type="submit" value="Cadastrar">Cadastrar</button>
+        </div>        
       </form>
     </div>
   </div>
