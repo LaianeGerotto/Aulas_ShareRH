@@ -41,14 +41,14 @@
                 {% for contrato in contratos %}
                 <tr>
                   <td> {{contrato.id_imovel}}</td>
-                  <td> {{contrato.inicio_contrato}}</td>
+                  <td> {{contrato.inicio_contrato}} </td>
                   <td> {{contrato.termino_contrato}}</td>
                   <td> {{contrato.cliente}}</td>
-                  <td> <a href="/contrato_alterar/{{contrato.id}}">Editar</a></td>
-                  <td> <a href="/contrato_visualizar/{{contrato.id}}">Mais informações</a></td>
+                  <td> <a href="/contrato_alterar/{{contrato.id}}">&#9997;</a></td>
+                  <td> <a href="/contrato_visualizar/{{contrato.id}}">&#10133; info</a></td>
                   <td>
                     <form class="delete-form" action="/contrato_menu/{{contrato.id}}/delete" method="post" style="margin-bottom: 0;">
-                      <a href="javascript:;" onclick="alertaDeletar(event)">Excluir</a>
+                      <a href="javascript:;" onclick="alertaDeletar(event)">&#10060;</a>
                     </form>
                   </td>                
                 </tr>

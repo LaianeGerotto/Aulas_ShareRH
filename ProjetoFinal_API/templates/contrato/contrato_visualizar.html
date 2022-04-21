@@ -10,13 +10,14 @@
 <body>
   <div class="container">
     <div class="form-image">
-      <img src="/static/images/contrato em mao.svg">
+      <img src="/static/images/acordo.svg">
     </div>
     <div class="form">
       <form action = "{{ request.path }}" method = "post">
         <div class="retorno">
           <button><a href="/menuNavegacao">MENU</a></button>
           <button><a href="/contrato_menu">Lista de Contratos</a></button>
+          <button><a href="/contrato_alterar/{{contrato.id}}">Alterar</a></button>
         </div>
         <div class="form-header">          
           <div class="'title">
@@ -31,52 +32,52 @@
           <div class="input-box"> 
               <label><strong>TÉRMINO DO CONTRATO</strong></label>
               <p>{{contrato.termino_contrato}}</p>            
-          </div>      
-        </div>
-  
-        <div class="input-group">
+          </div> 
           <div class="input-box">            
             <label><strong>VALOR MENSAL</strong></label>
-            <p>{{contrato.valor}}</p>
-          </div>      
-        </div>
+            <p>R$ {{contrato.valor}}</p>
+          </div>   
   
-  
-        <div class="input-group">
           <div class="input-box">
             <label><strong>CLIENTE</strong></label>
-            <p>{{contrato.id_cliente}}</p>
-              {% for cliente in clientes %}
-                {% if cliente.id == contrato.id_cliente %}
-                  <option selected value="{{cliente.id}}">{{ cliente.nome }}</option>
-                {% else %}
-                  <option selected value="{{cliente.id}}">{{ cliente.nome }}</option>
-                {% endif %}
-              {% endfor %}
+            <p>{{contrato.cliente.nome}}</p>
           </div>
 
           <div class="input-box">
             <label><strong>CORRETOR RESPONSÁVEL</strong></label>
-            <p>{{contrato.id_corretor}}</p>
-              {% for corretor in corretores %}
-                {% if corretor.id == contrato.id_cliente %}
-                  <option selected value="{{corretor.id}}">{{ corretor.nome }}</option>
-                {% else %}
-                  <option selected value="{{corretor.id}}">{{ corretor.nome }}</option>
-                {% endif %}
-              {% endfor %}
+            <p>{{contrato.corretor.nome}}</p>
           </div>
+
+          <div class="input-box">
+            <label><strong>PROPRIETÁRIO</strong></label>
+            <p>{{contrato.imovel.proprietario.nome}}</p>
+          </div>
+
           <div class="input-box">
             <label><strong>IMÓVEL</strong></label>
-            <p>{{contrato.id_imovel}}</p>
-              {% for imovel in imoveis %}
-                {% if imovel.id == contrato.imovel_id %}
-                  <option selected value="{{imovel.id}}">{{ imovel }}</option>
-                {% else %}
-                  <option selected value="{{imovel.id}}">{{ imovel }}</option>
-                {% endif %}
-              {% endfor %}
+            <p>ID:{{contrato.id_imovel}}</p>
           </div>
+
+          <div class="input-box">
+            <label><strong>TIPO DO IMÓVEL</strong></label>
+            <p>{{contrato.imovel.tipo_imovel}}</p>
+          </div> 
+          
+          
+
+          <div class="input-box">
+            <label><strong>ENDEREÇO IMÓVEL</strong></label>
+            <p>RUA: {{contrato.imovel.endereco}}, {{contrato.imovel.cidade}}/{{contrato.imovel.estado}}, CEP: {{contrato.imovel.cep}}</p>
+          </div> 
+
+          
+          
+
+          <div class="input-box-contrato">            
+            <a><strong>CONTRATO DE LOCAÇÃO</strong><a><p>At vero <label><strong>CLIENTE: {{contrato.cliente.nome}}</strong></label> eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime <label><strong>PROPRIETÁRIO: {{contrato.imovel.proprietario.nome}}</strong></label> placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et <label><strong>IMÓVEL: Rua: {{contrato.imovel.endereco}}, {{contrato.imovel.cidade}}/{{contrato.imovel.estado}}, CEP: {{contrato.imovel.cep}}</strong><label></label>molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat oluptatibus maiores alias consequatur aut pe <label><strong>CORRETOR: {{contrato.corretor.nome}}</strong></label>.</p>
+          </div>
+          
+        </div>
       </form>
     </div>
   </div>
