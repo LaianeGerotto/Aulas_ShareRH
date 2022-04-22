@@ -27,6 +27,18 @@ body{
 
 .container h1 {
   font-size: 3.2em;
+  color: #fff; /* se apagar fica preto */
+
+}
+/* Configurações do MENU
+.form {
+  width: 50%;
+  display: flex;
+  justify-content:center ;
+  align-items: center;
+  flex-direction: column;
+  background-color: #fff;
+  padding: 3rem;
 }
 
 .form-image {
@@ -40,9 +52,21 @@ body{
 
 .form-image img{
   width: 31rem;
-  filter: drop-shadow(1px 1px 1px rgba(245, 241, 241, 0.644));
-  
 }
+
+
+.form-header h1::after{
+  content: '';
+  display: block;
+  width: 5rem;
+  height: 0.3rem;
+  background-color: #0b3996;
+  margin: 0 auto;
+  position: absolute;
+  border-radius: 10px;
+}
+
+*/
 
 
 .form {
@@ -51,9 +75,26 @@ body{
   justify-content:center ;
   align-items: center;
   flex-direction: column;
-  background-color: #fff;
+  background-color: #23355A;
   padding: 3rem;
 }
+
+
+.form-image {
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #fff;
+  padding: 1rem;
+}
+
+
+.form-image img{
+  width: 31rem;
+}
+
+
 
 .form-header{
   
@@ -61,6 +102,18 @@ body{
   display: flex;
   justify-content: space-between;
 }
+
+.form-header h1::after{
+  content: '';
+  display: block;
+  width: 5rem;
+  height: 0.3rem;
+  background-color: #02BDB2;
+  margin: 0 auto;
+  position: absolute;
+  border-radius: 10px;
+}
+
 
 .retorno{
   display:grid;
@@ -114,8 +167,6 @@ body{
 
 
 
-
-
 .input-group button h2{
   font-weight: 500;
   color: #fff;
@@ -123,16 +174,7 @@ body{
 
 
 
-.form-header h1::after{
-  content: '';
-  display: block;
-  width: 5rem;
-  height: 0.3rem;
-  background-color: #0b3996;
-  margin: 0 auto;
-  position: absolute;
-  border-radius: 10px;
-}
+
 
 .input-group, .person-group{
   display: flex;
@@ -145,8 +187,10 @@ body{
   display: flex;
   flex-direction: column;
   margin-bottom: 1.1rem;
+  color: #fff 
 }
 
+/*Campos que altera as principais cores
 .input-box input, .input-box select {
   margin: 0.6rem 0;
   padding: 0.8rem 2.0rem;
@@ -166,6 +210,45 @@ body{
   height: 86px;
 }
 
+.input-box label, .person-title, h6{
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #000000c0;
+  width: 300px;
+}
+
+*/
+
+
+
+.input-box input, .input-box select {
+  margin: 0.6rem 0;
+  padding: 0.8rem 2.0rem;
+  border:none;
+  border-radius: 10px;
+  box-shadow: 1px 1px 6px 6px #7a74741c;
+  font-size: 16px;
+}
+
+.input-box textarea {
+  margin: 0.6rem 0px;
+  border:none;
+  border-radius: 5px;
+  box-shadow: 1px 1px 6px 6px #0000001c;
+  font-size: 20px;
+  width: 816px;
+  height: 86px;
+}
+
+.input-box label, .person-title, h6{
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #f8f4f4;
+  width: 300px;
+}
+
+
+
 
 .input-box input:hover, .input-box textarea:hover{
   background-color: #eeeeee79;
@@ -181,12 +264,7 @@ body{
   outline: 1px solid #6c63ff;
 }
 
-.input-box label, .person-title, h6{
-  font-size: 0.95rem;
-  font-weight: 600;
-  color: #000000c0;
-  width: 300px;
-}
+
 
 .input-box input::placeholder{
   color: #000000be;
@@ -207,6 +285,7 @@ body{
 .person-input{
   display: flex;
   align-items: center;
+  
 }
 
 .person-input input{
@@ -216,7 +295,7 @@ body{
 .person-input label{
   font-size: 0.90rem;
   font-weight:600;
-  color: #000000c0;
+  color: #fff;  /*#000000c0  preto*/ 
 }
 
 .continue-button button{
