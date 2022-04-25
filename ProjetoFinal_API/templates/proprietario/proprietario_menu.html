@@ -1,42 +1,10 @@
-<!--
-<html>
-  <body>
-    <a href="/menuNavegacao">MENU</a>    
-    <a href="/proprietario_cadastro">Novo Proprietário</a>
-    <h3>Lista de Proprietarios</a></h3>
-    <table>
-      <thead>
-         <tr>
-            <th>Nome</th>
-            <th>Telefone</th>
-            <th>Email </th>
-            <td></td>
-         </tr>
-      </thead>    
-      <tbody>
-        {% for proprietario in proprietarios %}
-        <tr>
-          <td> {{proprietario.nome}}</td>
-          <td> {{proprietario.telefone}}</td>
-          <td> {{proprietario.email}}</td>
-          <td> <a href="/proprietario_alterar/{{proprietario.id}}">Editar</a></td>
-          <td> <a href="/proprietario_visualizar/{{proprietario.id}}">Mais informações</a></td>
-          <td> <a href="/proprietario_menu/{{proprietario.id}}/delete">Excluir</a></td>
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>    
-  </body>
-</html>
--->
-
 <html lang="pt">
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script type="text/javascript" src="static/form.js"></script>
-  <title>Imóveis</title>
+  <title>Proprietários</title>
   <link rel="stylesheet" href="/static/form1.css">
 </head>
 <body>
@@ -47,12 +15,12 @@
     <div class="form">
       <form action = "{{ request.path }}" method = "post">
         <div class="retorno">
-          <button><a href="/menuNavegacao">MENU</a></button>
-          <button><a href="/proprietario_cadastro">NOVO PROPRIETÁRIO</a></button>
+          <a href="/menuNavegacao">MENU</a>
+          <a href="/proprietario_cadastro">NOVO PROPRIETÁRIO</a>
         </div>
         <div class="form-header">          
           <div class="'title">
-            <h1>Proprietários</h1>  
+            <h1>Lista de Proprietários</h1>  
           </div>
           
         </div>
@@ -60,12 +28,12 @@
           <div class="input-box">
             <table>
               <thead>
-                 <tr>
-                  <th>Código</th>
+                <tr>
+                  <th>ID</th>
                   <th>Nome</th>
                   <th>Email</th>
-                  <td></td>
-                 </tr>
+                  <th colspan="3">Ações</th>
+                </tr>
                </tr>
               </thead>    
               <tbody>
@@ -74,11 +42,21 @@
                   <td> {{proprietario.id}}</td>
                   <td> {{proprietario.nome}}</td>
                   <td> {{proprietario.email}}</td>
-                  <td> <a href="/proprietario_alterar/{{proprietario.id}}">Editar</a></td>
-                  <td> <a href="/proprietario_visualizar/{{proprietario.id}}">Mais informações</a></td>
+                  <td> 
+                    <a href="/proprietario_alterar/{{proprietario.id}}">
+                      <img src="/static/images/editar.png" alt="Editar">
+                    </a>
+                  </td>
+                  <td> 
+                    <a href="/proprietario_visualizar/{{proprietario.id}}">
+                      <img src="/static/images/informacoes.png" alt="Mais informações"> 
+                    </a>
+                  </td>
                   <td>
                     <form class="delete-form" action="/proprietario_menu/{{proprietario.id}}/delete" method="post" style="margin-bottom: 0;">
-                      <a href="javascript:;" onclick="alertaDeletar(event)">Excluir</a>
+                      <a href="javascript:;" onclick="alertaDeletar(event)">
+                        <img src="/static/images/delete.png" alt="Excluir">  
+                      </a>
                     </form>
                   </td>                
                 </tr>

@@ -5,7 +5,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script type="text/javascript" src="static/form.js"></script>
-  <title>Dados do Contrato</title>
+  <title>Contratos</title>
   <link rel="stylesheet" href="/static/form1.css">
 </head>
 <body>
@@ -29,26 +29,36 @@
           <div class="input-box">
             <table>
               <thead>
-                 <tr>
-                    <th>Código</th>
-                    <th>Início</th>
-                    <th>Término</th>
-                    <th>Cliente</th>
-                 </tr>
-               </tr>
+                <tr>
+                  <th>ID</th>
+                  <th>Início</th>
+                  <th>Término</th>
+                  <th>Cliente</th>
+                  <th colspan="3">Ações</th>
+                </tr>               
               </thead>    
               <tbody>
                 {% for contrato in contratos %}
-                <tr>
-                  <td> {{contrato.id_imovel}}</td>
-                  <td> {{contrato.inicio_contrato}} </td>
-                  <td> {{contrato.termino_contrato}}</td>
+                <tr class="hover">
+                  <td> {{contrato.id}}</td>
+                  <td> {{contrato.inicio_contrato.strftime('%d/%m/%Y')}} </td>
+                  <td> {{contrato.termino_contrato.strftime('%d/%m/%Y')}}</td>
                   <td> {{contrato.cliente}}</td>
-                  <td> <a href="/contrato_alterar/{{contrato.id}}">&#9997;</a></td>
-                  <td> <a href="/contrato_visualizar/{{contrato.id}}">&#10133; info</a></td>
+                  <td> 
+                    <a href="/contrato_alterar/{{contrato.id}}">
+                      <img src="/static/images/editar.png" alt="Editar">
+                    </a>
+                  </td>
+                  <td> 
+                    <a href="/contrato_visualizar/{{contrato.id}}">
+                      <img src="/static/images/informacoes.png" alt="Mais informações">
+                    </a>
+                  </td>
                   <td>
                     <form class="delete-form" action="/contrato_menu/{{contrato.id}}/delete" method="post" style="margin-bottom: 0;">
-                      <a href="javascript:;" onclick="alertaDeletar(event)">&#10060;</a>
+                      <a href="javascript:;" onclick="alertaDeletar(event)">
+                        <img src="/static/images/delete.png" alt="Excluir">
+                      </a>
                     </form>
                   </td>                
                 </tr>

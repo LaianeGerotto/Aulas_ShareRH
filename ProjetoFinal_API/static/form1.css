@@ -70,22 +70,19 @@ body{
   justify-items: stretch;
 }
 
-.retorno button{
+.retorno a{
   border: none;
   background-color: #02BDB2;
   padding: 0.4rem 1rem;
   border-radius: 5px;
-  cursor: pointer;  
-}
-
-.retorno button:hover{
-  background-color: #5753a5 ;
-}
-
-.retorno button a{
+  cursor: pointer;
   text-decoration: none;
   font-weight: 500;
   color: #fff;
+}
+
+.retorno a:hover{
+  background-color: #5753a5 ;
 }
 
 .menu{
@@ -93,27 +90,25 @@ body{
   align-items: center;
 }
 
-.menu button{
+.menu a{
   border: none;
   background-color: #02BDB2;
   padding: 0.4rem 1rem;
   border-radius: 5px;
   cursor: pointer;  
-}
-
-.menu button:hover{
-  background-color: #5753a5 ;
-}
-
-.menu button a{
   text-decoration: none;
   font-weight: 500;
   color: #fff;
-  font-size:px;
+}
+
+.menu a:hover{
+  background-color: #5753a5 ;
 }
 
 
-
+td img {
+  width: 1.5rem;
+}
 
 
 .input-group button h2{
@@ -240,31 +235,31 @@ body{
   color: #fff;
 }
 
-table, th, td {
-  border: 0.5px  rgba(0, 0, 0, 0.377);
-  border-style:double;
-  
+table {
+  border-collapse: collapse;
 }
 
+table th, table td {
+  border: 0.5px  rgba(0, 0, 0, 0.377);
+  border-style: solid;
+}
 
 th, td{
   padding: 3px;
   text-align: center;
-  width: 90px;
+  width: 99px;
 }
 
 th{
   font-weight: bold;
-  font-size: 18px;
-  
+  font-size: 16px;  
 }
 
-tr:nth-child(even) {
-  background-color: #aba3df86;
-  
+td{
+  font-size: 14px;  
 }
   
-tr:hover:nth-child(1n + 2) {
+tr.hover:hover:nth-child(1n + 1) {
   background-color: #09024263;
   
   
@@ -330,9 +325,13 @@ tr:hover:nth-child(1n + 2) {
     height: 86px;
   }
 
-  table, th, td {
+  table {
+    border-collapse: collapse;
+  }
+
+  table th, table td {
     border: 0.5px  rgba(0, 0, 0, 0.377);
-    border-style:double;
+    border-style: solid;
     width: 100%;
     overflow-y: scroll;
     font-size: 10px;      

@@ -17,8 +17,8 @@
       <form action = "{{ request.path }}" method = "post">
         <div class="retorno">
           <button><a href="/menuNavegacao">MENU</a></button>
-          <button><a href="/cliente_menu">Lista de Clientes</a></button>
-          <button><a href="/cliente_alterar/{{cliente.id}}">Alterar</a></button>
+          <button><a href="/cliente_menu">LISTA DE CLIENTES</a></button>
+          <button><a href="/cliente_alterar/{{cliente.id}}">ALTERAR</a></button>
         </div>
         <div class="form-header">          
           <div class="'title">
@@ -74,12 +74,22 @@
             <label><strong>EMAIL</strong></label>
             <p>{{cliente.email}}</p>
           </div>
-          
-          <div class="input-box">
-            <label><strong>Adicionar os CONTRATOS??</strong></label>
-            <input type="text" name=""  required/>
-          </div> 
         </div>
+
+        <div class="input-group">
+          <table>
+            <tr>
+              <th>ID Contrato</th>
+              <th>Imovel</th>
+            </tr>
+            {% for contrato in cliente.contratos %}
+              <tr>
+                <td>{{contrato.id}}</td>
+                <td>{{contrato.imovel}}</td>
+              </tr>
+            {% endfor %}
+          </table>
+        </div> 
         
       </form>
     </div>

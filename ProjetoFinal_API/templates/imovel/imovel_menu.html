@@ -1,35 +1,3 @@
-<!--
-<html>
-  <body>
-    <a href="/menuNavegacao">MENU</a>    
-    <a href="/imovel_cadastro">Novo Imovel</a>
-    <h3>Lista de Imoveis</a></h3>
-    <table>
-      <thead>
-         <tr>
-            <th>Código</th>
-            <th>Tipo de Imóvel</th>
-            <th>Proprietario</th>
-            <td></td>
-         </tr>
-      </thead>    
-      <tbody>
-        {% for imovel in imoveis %}
-        <tr>
-          <td> {{imovel.id}}</td>
-          <td> {{imovel.tipo_imovel}}</td>
-          <td> {{imovel.proprietario.nome}}</td>
-          <td> <a href="/imovel_alterar/{{imovel.id}}">Editar</a></td>
-          <td> <a href="/imovel_visualizar/{{imovel.id}}">Mais informações</a></td>
-          <td> <a href="/imovel_menu/{{imovel.id}}/delete">Excluir</a></td>
-        </tr>
-        {% endfor %}
-      </tbody>
-
-    </table>
-  </body>
-</html>
--->
 <!DOCTYPE html>
 <html lang="pt">
 <head>
@@ -37,7 +5,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script type="text/javascript" src="static/form.js"></script>
-  <title>Dados Imóvel</title>
+  <title>Imóveis</title>
   <link rel="stylesheet" href="/static/form1.css">
 </head>
 <body>
@@ -48,8 +16,8 @@
     <div class="form">
       <form action = "{{ request.path }}" method = "post">
         <div class="retorno">
-          <button><a href="/menuNavegacao">MENU</a></button>
-          <button><a href="/imovel_cadastro">NOVO IMÓVEL</a></button>
+          <a href="/menuNavegacao">MENU</a>
+          <a href="/imovel_cadastro">NOVO IMÓVEL</a>
         </div>
         <div class="form-header">          
           <div class="'title">
@@ -61,11 +29,11 @@
           <div class="input-box">
             <table>
               <thead>
-                 <tr>
-                  <th>Cod.</th>
+                <tr>
+                  <th>ID</th>
                   <th>Tipo de Imóvel</th>
-                  <th>Proprietario</th>
-                  <td></td>
+                  <th>Proprietário</th>
+                  <th colspan="3">Ações</th>
                  </tr>
                </tr>
               </thead>    
@@ -75,11 +43,21 @@
                   <td> {{imovel.id}}</td>
                   <td> {{imovel.tipo_imovel}}</td>
                   <td> {{imovel.proprietario.nome}}</td>
-                  <td> <a href="/imovel_alterar/{{imovel.id}}">Editar</a></td>
-                  <td> <a href="/imovel_visualizar/{{imovel.id}}">Mais informações</a></td>
+                  <td> 
+                    <a href="/imovel_alterar/{{imovel.id}}">
+                      <img src="/static/images/editar.png" alt="Editar">
+                    </a>
+                  </td>
+                  <td> 
+                    <a href="/imovel_visualizar/{{imovel.id}}">
+                      <img src="/static/images/informacoes.png" alt="Mais informações">
+                    </a>
+                  </td>
                   <td>
                     <form class="delete-form" action="/imovel_menu/{{imovel.id}}/delete" method="post" style="margin-bottom: 0;">
-                      <a href="javascript:;" onclick="alertaDeletar(event)">Excluir</a>
+                      <a href="javascript:;" onclick="alertaDeletar(event)">
+                        <img src="/static/images/delete.png" alt="Excluir"> 
+                      </a>
                     </form>
                   </td>                
                 </tr>

@@ -6,21 +6,12 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import LoginManager, UserMixin, login_user, login_required, current_user, logout_user
-from datetime import date
-
-
-# main = Blueprint('main', __name__)
-# auth = Blueprint('auth', __name__)
-
-
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://postgres:root@localhost:5432/imobiliaria"
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 app.config['SECRET_KEY'] = "random string"
-# app.register_blueprint(auth)
-# app.register_blueprint(main)
 
 login_manager = LoginManager()
 login_manager.login_view = 'login'
@@ -415,12 +406,12 @@ class Contrato(db.Model):
   __tablename__ = 'contratos'
 
   id = db.Column(db.Integer, primary_key=True)
-  inicio_contrato = db.Column(db.String())
-  termino_contrato = db.Column(db.String())
+  inicio_contrato = db.Column(db.Date, nullable=False)
+  termino_contrato = db.Column(db.Date, nullable=False)
   valor = db.Column(db.String())
-  id_cliente = db.Column(db.Integer, db.ForeignKey('clientes.id'), nullable=False) 
-  id_corretor = db.Column(db.Integer, db.ForeignKey('corretores.id'), nullable=False)
-  id_imovel = db.Column(db.Integer, db.ForeignKey('imoveis.id'), nullable=False)
+  id_cliente = db.Column(db.Integer, db.ForeignKey('clientes.id'), nullable=True) 
+  id_corretor = db.Column(db.Integer, db.ForeignKey('corretores.id'), nullable=True)
+  id_imovel = db.Column(db.Integer, db.ForeignKey('imoveis.id'), nullable=True)
 
   def __init__(self, inicio_contrato, termino_contrato, valor, id_cliente, id_corretor, id_imovel):
     self.inicio_contrato = inicio_contrato
@@ -524,7 +515,6 @@ def login_post():
     lembrar = True if request.form.get('lembrar') else False
 
     usuario = Usuario.query.filter_by(email=email).first()
-    print(email)
     if not usuario or not check_password_hash(usuario.senha, senha):
         flash('Senha ou email incorretos!')
         return redirect(url_for('login'))
