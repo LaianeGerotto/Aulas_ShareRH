@@ -15,3 +15,14 @@ cujo objetivo era realizar o desenvolvimento de uma API REST ao lado de uma Inte
 - PostgreSQL
 
 
+
+
+## DEMO
+Demonstração do CRUD de Contratos que abrange o relacionamento entre os Models: Contrato, Cliente/Inquilino e Imóvel
+
+
+
+
+
+https://user-images.githubusercontent.com/60964592/165392030-91d0bedf-fcc2-4ae4-8275-55c24d16c372.mp4
+
