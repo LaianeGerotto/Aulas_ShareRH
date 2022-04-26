@@ -16,8 +16,8 @@
     <div class="form">
       <form action = "{{ request.path }}" method = "post">
         <div class="retorno">
-          <button><a href="/menuNavegacao">MENU</a></button>
-          <button><a href="/proprietario_menu">Lista de Proprietários</a></button>
+          <a href="/menuNavegacao">MENU</a>
+          <a href="/proprietario_menu">LISTA DE PROPRIETÁRIOS</a>
         </div>
         <div class="form-header">          
           <div class="'title">
@@ -84,14 +84,10 @@
             <input type="email" name="email" placeholder ="email@email" required/>
           </div> 
 
-          <div class="input-box">
-            <label><strong>Exibir IMOVEIS</strong></label>
-            <input type="text" name=""  required/>
-          </div>
         </div>
 
         <div class="continue-button">
-          <button><a class="botao" type="submit" value="Cadastrar">Cadastrar</button>
+          <button class="botao" type="submit" value="Cadastrar">Cadastrar</button>
         </div>        
       </form>
     </div>

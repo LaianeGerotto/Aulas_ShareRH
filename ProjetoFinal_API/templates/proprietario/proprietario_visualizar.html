@@ -16,13 +16,13 @@
     <div class="form">
       <form action = "{{ request.path }}" method = "post">
         <div class="retorno">
-          <button><a href="/menuNavegacao">MENU</a></button>
-          <button><a href="/proprietario_menu">LISTA DE PROPRIETÁRIOS</a></button>
-          <button><a href="/proprietario_alterar/{{proprietario.id}}">ALTERAR</a></button>
+          <a href="/menuNavegacao">MENU</a>
+          <a href="/proprietario_menu">LISTA DE PROPRIETÁRIOS</a>
+          <a href="/proprietario_alterar/{{proprietario.id}}">ALTERAR</a>
         </div>
         <div class="form-header">          
           <div class="'title">
-            <h1>Informações</h1>            
+            <h1>Informações - Proprietário</h1>            
           </div>          
         </div>
 
@@ -70,14 +70,9 @@
             <p>{{proprietario.email}}</p>
           </div>
           
-          <div class="input-box">
-            <label><strong>Adicionar os CONTRATOS??</strong></label>
-            <input type="text" name="" />
-          </div> 
         </div>        
       </form>
     </div>
-  </div>
-  
+  </div>  
 </body>
 </html>

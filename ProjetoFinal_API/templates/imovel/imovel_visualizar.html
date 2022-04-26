@@ -15,13 +15,13 @@
     <div class="form">
       <form action = "{{ request.path }}" method = "post">
         <div class="retorno">
-          <button><a href="/menuNavegacao">MENU</a></button>
-          <button><a href="/imovel_menu">LISTA DE IMÓVEIS</a></button>
-          <button><a href="/imovel_alterar/{{imovel.id}}">ALTERAR</a></button>
+          <a href="/menuNavegacao">MENU</a>
+          <a href="/imovel_menu">LISTA DE IMÓVEIS</a>
+          <a href="/imovel_alterar/{{imovel.id}}">ALTERAR</a>
         </div>
         <div class="form-header">          
           <div class="'title">
-            <h1>Informações</h1>            
+            <h1>Informações - Imóvel</h1>            
           </div>          
         </div>
         <div class="input-group">
@@ -43,7 +43,7 @@
           </div>       
         
           <div class="input-box">
-            <label><strong>NOME DO PROPRIETARIO</strong></label>
+            <label><strong>NOME DO PROPRIETÁRIO</strong></label>
             <p>{{imovel.proprietario.nome}}</p> 
               {% for proprietario in proprietarios %}
                 {% if proprietario.id == imovel.id_proprietario %}

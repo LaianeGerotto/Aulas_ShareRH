@@ -19,9 +19,7 @@
           <div class="'title">
             <h1>LOGIN</h1>  
           </div>
-          <div class="retorno">
-            <button><a href="/signup">NOVO USUÁRIO</a></button>
-          </div>          
+                  
         </div>        
         
           {% with messages = get_flashed_messages() %}
@@ -42,15 +40,18 @@
                 <p>Senha: <input type="password" name="senha"></p>
               </div>
             </div>
-            <div class="input-box">
+            <div class="input-group">
               <label class="checkbox">
                 <input name="lembrar" type="checkbox">
                 Lembrar
               </label>
             </div>
             <div class="continue-button">
-              <button><a type="submit" value="Enviar">ENTRAR</a></button>
-            </div>            
+              <button type="submit" value="Enviar">ENTRAR</button>
+            </div>
+            <div class="botao-login-cadastro">
+              <a href="/signup">NOVO USUÁRIO</a>
+            </div>             
           </form>
         </div>    
       </form>

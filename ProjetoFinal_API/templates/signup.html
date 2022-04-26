@@ -18,9 +18,7 @@
                     <div class="'title">
                     <h1>CADASTRO</h1>  
                     </div>
-                    <div class="retorno">
-                        <button><a href="/login">LOGIN</a></button>
-                    </div>          
+                             
                 </div>  
                     {% with messages = get_flashed_messages() %}
                     {% if messages %}
@@ -71,7 +69,10 @@
                         </div>
                         
                         <div class="continue-button">
-                            <button><a class="botao" type="submit" value="Cadastrar">Cadastrar</button>
+                            <button class="botao" type="submit" value="Cadastrar">CADASTRAR</button>
+                        </div>
+                        <div class="botao-login-cadastro">
+                            <a href="/login">RETORNAR</a>
                         </div>
                         
                     </form>

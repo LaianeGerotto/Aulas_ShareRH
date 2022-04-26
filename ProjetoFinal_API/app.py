@@ -328,7 +328,7 @@ class Imovel(db.Model):
     self.id_proprietario = id_proprietario
   
   def __repr__(self):
-    return f"ID: {self.id} - Proprietário: {self.proprietario.nome}"
+    return f"Imóvel: {self.id} - Proprietário:{self.proprietario.nome}"
 
   @app.route('/imoveis', methods=['POST', 'GET'])
   def handle_imoveis():

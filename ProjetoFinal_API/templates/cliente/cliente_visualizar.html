@@ -5,7 +5,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="/static/form1.css">
-  <title>Dados Clientes</title>
+  <title>Clientes</title>
 </head>
 <body>  
   
@@ -16,13 +16,13 @@
     <div class="form">
       <form action = "{{ request.path }}" method = "post">
         <div class="retorno">
-          <button><a href="/menuNavegacao">MENU</a></button>
-          <button><a href="/cliente_menu">LISTA DE CLIENTES</a></button>
-          <button><a href="/cliente_alterar/{{cliente.id}}">ALTERAR</a></button>
+          <a href="/menuNavegacao">MENU</a>
+          <a href="/cliente_menu">LISTA DE CLIENTES</a>
+          <a href="/cliente_alterar/{{cliente.id}}">ALTERAR</a>
         </div>
         <div class="form-header">          
           <div class="'title">
-            <h1>Informações</h1>            
+            <h1>Informações - Cliente</h1>            
           </div>          
         </div>
 
@@ -74,23 +74,7 @@
             <label><strong>EMAIL</strong></label>
             <p>{{cliente.email}}</p>
           </div>
-        </div>
-
-        <div class="input-group">
-          <table>
-            <tr>
-              <th>ID Contrato</th>
-              <th>Imovel</th>
-            </tr>
-            {% for contrato in cliente.contratos %}
-              <tr>
-                <td>{{contrato.id}}</td>
-                <td>{{contrato.imovel}}</td>
-              </tr>
-            {% endfor %}
-          </table>
-        </div> 
-        
+        </div>   
       </form>
     </div>
   </div>
