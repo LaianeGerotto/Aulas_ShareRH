@@ -91,7 +91,6 @@ def cliente_cadastro():
       cliente = Cliente(request.form['nome'], request.form['cpf_cnpj'],request.form['tipo_pessoa'], request.form['endereco'], request.form['cidade'],request.form['estado'], request.form['cep'], request.form['telefone'], request.form['email'])
       db.session.add(cliente)
       db.session.commit()
-      flash('Cadastro realizado!')
       return redirect(url_for('cliente_menu'))
   return render_template('cliente/cliente_cadastro.html')
 
@@ -111,7 +110,6 @@ def cliente_alterar(cliente_id):
       cliente.email=request.form['email']
       db.session.add(cliente)
       db.session.commit()
-      flash('Atulização realizada!')
       return redirect(url_for('cliente_menu'))
   return render_template('cliente/cliente_alterar.html', cliente = cliente)
 

@@ -107,7 +107,6 @@ def contrato_cadastro():
       )
       db.session.add(contrato)
       db.session.commit()
-      flash('Cadastro realizado!')
       return redirect(url_for('contrato_menu'))
   imoveis = Imovel.query.all()
   clientes = Cliente.query.all()
@@ -132,7 +131,6 @@ def contrato_alterar(contrato_id):
       contrato.id_imovel=request.form['id_imovel']
       db.session.add(contrato)
       db.session.commit()
-      flash('Atulização realizada!')
       return redirect(url_for('contrato_menu'))
   imoveis = Imovel.query.all()
   clientes = Cliente.query.all()

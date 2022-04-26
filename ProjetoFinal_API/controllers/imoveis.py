@@ -102,7 +102,6 @@ def imovel_cadastro():
       )
       db.session.add(imovel)
       db.session.commit()
-      flash('Cadastro realizado!')
       return redirect(url_for('imovel_menu'))
   proprietarios = Proprietario.query.all()
   return render_template('imovel/imovel_cadastro.html', proprietarios = proprietarios)
@@ -121,7 +120,6 @@ def imovel_alterar(imovel_id):
       imovel.id_proprietario=request.form['id_proprietario']
       db.session.add(imovel)
       db.session.commit()
-      flash('Atulização realizada!')
       return redirect(url_for('imovel_menu'))
   proprietarios = Proprietario.query.all()    
   return render_template('imovel/imovel_alterar.html',

@@ -97,7 +97,6 @@ def proprietario_cadastro():
       proprietario = Proprietario(request.form['nome'], request.form['cpf_cnpj'],request.form['tipo_pessoa'], request.form['endereco'], request.form['cidade'],request.form['estado'], request.form['cep'], request.form['telefone'], request.form['email'])
       db.session.add(proprietario)
       db.session.commit()
-      flash('Cadastro realizado!')
       return redirect(url_for('proprietario_menu'))
   return render_template('proprietario/proprietario_cadastro.html')
 
@@ -117,7 +116,6 @@ def proprietario_alterar(proprietario_id):
       proprietario.email=request.form['email']
       db.session.add(proprietario)
       db.session.commit()
-      flash('Atulização realizada!')
       return redirect(url_for('proprietario_menu'))
   return render_template('proprietario/proprietario_alterar.html', proprietario = proprietario)
 

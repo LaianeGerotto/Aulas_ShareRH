@@ -80,7 +80,6 @@ def corretor_cadastro():
       corretor = Corretor(request.form['nome'], request.form['cpf_cnpj'],request.form['tipo_pessoa'], request.form['telefone'], request.form['email'])
       db.session.add(corretor)
       db.session.commit()
-      flash('Cadastro realizado!')
       return redirect(url_for('corretor_menu'))
   return render_template('corretor/corretor_cadastro.html')
 
@@ -96,7 +95,6 @@ def corretor_alterar(corretor_id):
       corretor.email=request.form['email']
       db.session.add(corretor)
       db.session.commit()
-      flash('Atulização realizada!')
       return redirect(url_for('corretor_menu'))
   return render_template('corretor/corretor_alterar.html', corretor = corretor)
 
@@ -114,7 +112,6 @@ def corretor_delete(corretor_id):
     if corretor:
       db.session.delete(corretor)
       db.session.commit()
-      flash("Registro deletado com sucesso!")
       return redirect('/corretor_menu')
     abort(404)
   return render_template('delete.html', link_cancelar='corretor_menu')
