@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -40,8 +40,7 @@
           <div class="input-box"> 
             <label><strong>CEP</strong></label>
             <p>{{imovel.cep}}</p>
-          </div>       
-        
+          </div>
           <div class="input-box">
             <label><strong>NOME DO PROPRIETÁRIO</strong></label>
             <p>{{imovel.proprietario.nome}}</p> 
@@ -51,11 +50,8 @@
                 {% else %}
                   <option  value="{{proprietario.id}}">{{ proprietario.nome }}</option>
                 {% endif %}
-              {% endfor %}
-              
-            
+              {% endfor %} 
           </div>
-
           <div class="person-inputs">
             <div class="person-title">
               <h6>TIPO DO IMÓVEL</h6>             
@@ -70,6 +66,5 @@
       </form>
     </div>
   </div>
-
 </body>
 </html>

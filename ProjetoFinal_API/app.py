@@ -696,8 +696,6 @@ def cliente_delete(cliente_id):
     abort(404)
   return render_template('delete.html', link_cancelar='cliente_menu')
 
-
-
 ## IMOVEL
 @app.route('/imovel_menu', methods=['POST', 'GET'])
 @login_required
@@ -885,8 +883,6 @@ def corretor_delete(corretor_id):
       return redirect('/corretor_menu')
     abort(404)
   return render_template('delete.html', link_cancelar='corretor_menu')
-
-
 
 
 if __name__ == '__main__':

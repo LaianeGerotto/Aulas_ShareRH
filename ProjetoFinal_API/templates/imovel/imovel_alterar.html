@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -26,7 +26,6 @@
         <div class="input-box">
           <h4>Preencha os campos abaixo:</h4>
         </div>
-
         <div class="input-group">
           <div class="input-box">            
             <label><strong>ENDEREÇO</strong></label>
@@ -43,8 +42,7 @@
           <div class="input-box"> 
             <label><strong>CEP</strong></label>
             <input type="text" name="cep" value="{{imovel.cep}}"required/><br>
-          </div>       
-        
+          </div>
           <div class="input-box">
             <label><strong>NOME DO PROPRIETARIO</strong></label>
             <select name ="id_proprietario" value="{{imovel.proprietario.nome}}" required>
@@ -58,14 +56,12 @@
               {% endfor %}              
             </select>
           </div>
-
           <div class="person-inputs">
             <div class="person-title">
               <h6>TIPO DO IMÓVEL</h6> 
             </div>
             <div class="person-group">
-              <div class="person-input">       
-                
+              <div class="person-input"> 
                 {% if imovel.tipo_imovel == "Residencial" %}
                   <input type="radio" name ="tipo_imovel" value="Residencial" checked required>
                 {% else %}
@@ -83,7 +79,6 @@
               </div>
             </div> 
           </div>
-
           <div class="input-box">
             <label><strong>DESCRIÇÃO DO IMÓVEL</strong></label>
             <textarea type="text" name ="descricao_imovel" required>{{imovel.descricao_imovel}}</textarea>
@@ -95,6 +90,5 @@
       </form>
     </div>
   </div>
-
 </body>
 </html>

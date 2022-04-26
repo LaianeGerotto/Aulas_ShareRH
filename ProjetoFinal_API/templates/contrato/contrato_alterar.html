@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="pt-br">
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -21,8 +21,7 @@
         <div class="form-header">          
           <div class="'title">
             <h1>Alterar Contrato</h1>  
-          </div>
-          
+          </div>          
         </div>
         <div class="input-box">
           <h4>Preencha os campos abaixo:</h4>
@@ -35,16 +34,11 @@
           <div class="input-box"> 
               <label><strong>TÉRMINO DO CONTRATO</strong></label>
               <input type="date" name="termino_contrato" value="{{contrato.termino_contrato}}" required/><br>            
-          </div>
-  
-        
+          </div>        
           <div class="input-box">            
             <label><strong>VALOR MENSAL</strong></label>
             <input type="number" name="valor" value="{{contrato.valor}}" required/><br>
-          </div>   
-  
-  
-        
+          </div>    
           <div class="input-box">
             <label><strong>CLIENTE</strong></label>
             <select name ="id_cliente" value="{{contrato.id_cliente}}" required>
@@ -87,11 +81,9 @@
         </div>
         <div class="continue-button">
             <button class="botao" type="submit" value="Cadastrar">Alterar</button>
-        </div>
-        
+        </div>        
       </form>
     </div>
   </div>
-
 </body>
 </html>
