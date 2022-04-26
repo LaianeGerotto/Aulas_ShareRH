@@ -10,6 +10,10 @@ def load_user(usuario_id):
   return Usuario.query.get(int(usuario_id))
 
 #Rotas de Login
+@app.route('/')
+def default_route():
+    return redirect(url_for("login"))
+
 @app.route('/login')
 def login():
     return render_template('login.html')
