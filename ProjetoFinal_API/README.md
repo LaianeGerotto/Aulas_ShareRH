@@ -18,7 +18,7 @@ cujo objetivo era realizar o desenvolvimento de uma API REST ao lado de uma Inte
 
 
 ## DEMO
-Demonstração do CRUD de Contratos que abrange o relacionamento entre os Models: Contrato, Cliente/Inquilino e Imóvel
+Demonstração do **CRUD** de Contratos que abrange o relacionamento entre os Models: *Contrato, Cliente/Inquilino e Imóvel*
 
 
 
